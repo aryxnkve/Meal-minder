@@ -2,6 +2,10 @@
 
 The project aims to develop a personalized meal planner application that utilizes data from various sources, including nutritional databases, user input, and meal suggestion algorithms. The application will be developed using modern web and mobile technologies, leveraging frameworks such as React.js for frontend development and Node.js for backend functionality. The expected deliverables include a user-friendly interface for meal planning, calorie tracking features, personalized meal suggestions, and data visualization capabilities.
 
+## Documentation
+
+[![codelabs](https://img.shields.io/badge/codelabs-4285F4?style=for-the-badge&logo=codelabs&logoColor=white)](https://codelabs-preview.appspot.com/?file_id=1r6Cg_miHqOiVv43CM6GhOtq1ZWK9lf6mIlYW7VNuSVk)
+
 ## Data Sources
 
 ### Food Image Classification Dataset
@@ -54,3 +58,11 @@ A novel food image data set with volume and mass records of foods, and a deep le
 #### Data Scraping
 
 ![Architecture Diagram ](images/4.png)
+
+## References
+
+- [Food Image Classsification Dataset](https://www.kaggle.com/datasets/gauravduttakiit/food-image-classification)
+- [Foodies AI](https://www.kaggle.com/datasets/jvageesh11/foodies-ai-food-image-classification-challenge)
+- [CNFood](https://paperswithcode.com/dataset/cnfood-241)
+- [ChineseFoodNet](ChineseFoodNet)
+- [Calorie Predictor Dataset](https://github.com/Yiming-Miao/Calorie-Predictor/tree/master/Dataset)
