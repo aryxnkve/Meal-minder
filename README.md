@@ -1,0 +1,2 @@
+# NutriBuddy
+AI Meal Planner
