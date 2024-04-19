@@ -1,0 +1,3 @@
+pip install pandas
+pip install snowflake-connector-python transformers torch pinecone-client
+pip install snowflake-connector-python transformers torch pinecone-client\
