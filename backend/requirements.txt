@@ -5,3 +5,4 @@ python-dotenv
 snowflake-sqlalchemy
 boto3
 python-multipart
+httpx

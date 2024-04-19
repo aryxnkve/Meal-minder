@@ -19,6 +19,15 @@ def upload_page():
             # Assuming the FastAPI server runs on localhost port 8000
             response = requests.post("http://localhost:8000/upload/", files=files)
             st.write(response.json())
+            
+        if st.button("Send Image to Calorie Capture Service"):
+            files = {'file': uploaded_file.getvalue()}
+            response = requests.post("http://localhost:8000/capture_calorie/", files=files)
+            if response.status_code == 200:
+                st.success("Image processed successfully!")
+                st.write(response.json())  # Display the response from the server
+            else:
+                st.error("Failed to process image.")
 
 def main():
     # Initial setup for navigation
