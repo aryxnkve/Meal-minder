@@ -1,0 +1,5 @@
+python-dotenv
+streamlit
+streamlit-lottie
+streamlit-authenticator
+boto3
