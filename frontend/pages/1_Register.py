@@ -119,17 +119,17 @@ def basic_register():
         height = st.number_input('Height (cm)',value=138, min_value=0)
 
         goal = st.radio("What's your fitness goal?", 
-                        ["Lose weight", "Maintain weight", "Gain weight"])
+                        ["🏋️‍♂️ Lose weight", "⚖️ Maintain weight", "🥛 Gain weight"])
         
     with col2:
         gender = st.selectbox("Gender", ["Female", "Male", "Other"])
         weight = st.number_input('Weight (kgs)', value=69, min_value=0)
         activity_level = st.radio("Activity level",
-                                    options=["Sedentary",
-                                    "Lightly active",
-                                    "Moderately active",
-                                    "Very active",
-                                    "Extra active"],
+                                    options=["🖥️ Sedentary",
+                                    "🧘 Lightly active",
+                                    "🚴 Moderately active",
+                                    "🏋️ Very active",
+                                    "🧗 Extra active"],
                                     captions=[
                                         "little or no exercise",
                                         "light exercise/sports 1-3 days/week",

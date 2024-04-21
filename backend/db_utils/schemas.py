@@ -22,3 +22,9 @@ class UserAuthentication(BaseModel):
 
 class UserAccessToken(BaseModel):
     access_token: str
+
+class UserPreferences(UserAccessToken):
+    is_vegetarian: bool
+    dishes: str
+    ingredients: str
+    allergies: str

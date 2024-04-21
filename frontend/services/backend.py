@@ -51,4 +51,13 @@ def validate_access_token(access_token):
     else:
         return False, response.json().get("detail")
 
+def set_user_preferences(preferences):
+    url = f"{BACKEND_API_URL}/api/v1/user/preferences"
+    payload = preferences
+    json_payload = json.dumps(payload)
 
+    response = requests.request("POST", url, headers=headers, data=json_payload)
+    if response.status_code == 200:
+        return True
+    else:
+        return False, response.json().get("detail")

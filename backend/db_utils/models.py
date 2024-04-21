@@ -1,5 +1,5 @@
 
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Float
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Float, Boolean
 from datetime import datetime
 from utils.util import get_hashed_password
 import bcrypt
@@ -58,3 +58,26 @@ class User(Base):
                 'Password must be between 8 and 50 characters')
         self.enc_password = get_hashed_password(password).decode('utf-8')
 
+class Preferences(Base):
+    __tablename__ = "preferences"
+
+    preference_id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), unique=True)
+    is_vegetarian = Column(Boolean)
+    dishes = Column(String)
+    ingredients = Column(String)
+    allergies = Column(String)
+
+    def __init__(self, user_id, is_vegetarian, dishes, ingredients, allergies) -> None:
+        self.user_id = user_id
+        self.is_vegetarian = is_vegetarian
+        self.dishes = dishes
+        self.ingredients = ingredients
+        self.allergies = allergies
+
+    def __iter__(self):
+        for key in ["preference_id", "user_id", "is_vegetarian", "dishes", "ingredients", "allergies"]:
+            yield key, getattr(self, key)
+    
+    def set_preference_id(self, id):
+        self.preference_id = id

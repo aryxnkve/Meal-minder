@@ -61,3 +61,4 @@ async def validate_access_token(user_input: schemas.UserAccessToken, db: Session
         raise HTTPException(
                 status_code=500, detail=f"{str(e)}")
     return JSONResponse(content=result)
+

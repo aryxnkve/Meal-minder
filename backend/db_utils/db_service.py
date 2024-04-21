@@ -69,3 +69,48 @@ def validate_access_token(db: Session, user_input: schemas.UserAccessToken):
             "name": result_user.first_name + " " + result_user.last_name
             }
 
+def get_pref_by_userid(db: Session, user_id):
+    result_user = db.query(models.Preferences).filter(models.Preferences.user_id == user_id)
+    if result_user.first():
+        print("FOUND IN DB", result_user.first())
+        return result_user
+    else:
+        return None
+
+def set_user_preferences(db: Session, user_input: schemas.UserPreferences):
+    try:
+        # decode token and get user id
+        decoded_info = util.decode_token(user_input.access_token)
+        user_id = decoded_info.get("user_id")
+        print("Got user id", user_id)
+
+        # create model
+        db_pref = models.Preferences( user_id=user_id,
+                                    dishes=user_input.dishes,
+                                    is_vegetarian=user_input.is_vegetarian,
+                                    ingredients=user_input.ingredients,
+                                    allergies=user_input.allergies
+                                    )
+
+        #check if preferences already in db
+        existing_pref = get_pref_by_userid(db, user_id)
+        if existing_pref:
+            # update
+            pref = existing_pref.first()
+            pref = dict(pref)
+            db_pref.set_preference_id(pref["preference_id"])
+            print(dict(db_pref))
+            existing_pref.update(dict(db_pref), synchronize_session = False)
+            print("Updated exisiting preference")
+            db.commit()
+        else:
+            db.add(db_pref)
+            print("Added preference")
+            db.commit()
+            db.refresh(db_pref)
+        return True
+    except Exception as e:
+        print("Error occurred ", str(e))
+        raise Exception
+
+
