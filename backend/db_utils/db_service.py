@@ -8,12 +8,19 @@ import logging
 from utils import util
 
 def create_user(db: Session, user: schemas.UserCreate):
-    # if get_user_by_username(db, user.username):
-    #     raise HTTPException(status_code = 404, detail = r"Username already in use!")
+    if get_user_by_username(db, user.username):
+        raise HTTPException(status_code = 404, detail = r"Username already in use!")
     db_user = models.User(username=user.username,
                           first_name=user.firstname,
                           last_name=user.lastname,
-                          password=user.password)
+                          password=user.password,
+                          age=user.age,
+                          gender=user.gender,
+                          height=user.height,
+                          weight=user.weight,
+                          activity_level=user.activity_level,
+                          calorie_goal=user.calorie_goal,
+                          bmi=user.bmi)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)

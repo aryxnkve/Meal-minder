@@ -8,6 +8,13 @@ class UserCreate(BaseModel):
     password: str
     firstname: str
     lastname: str
+    age: int
+    gender: str
+    height: int
+    weight: int
+    activity_level: str
+    calorie_goal: int
+    bmi: float
 
 class UserAuthentication(BaseModel):
     username: str

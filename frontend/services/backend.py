@@ -11,14 +11,9 @@ BACKEND_API_URL = os.getenv("BACKEND_API_URL", "http://api:8095")
 
 headers = {'Content-Type': 'application/json'}
 
-def create_user(username, password, firstname, lastname):
+def create_user(info):
     url = f"{BACKEND_API_URL}/api/v1/register_user"
-    payload = {
-        "username": username,
-        "password": password,
-        "firstname": firstname,
-        "lastname": lastname
-    }
+    payload = info
     json_payload = json.dumps(payload)
 
     response = requests.request("POST", url, headers=headers, data=json_payload)

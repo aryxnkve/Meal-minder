@@ -1,5 +1,5 @@
 
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Float
 from datetime import datetime
 from utils.util import get_hashed_password
 import bcrypt
@@ -18,19 +18,30 @@ class User(Base):
     enc_password = Column(String)
     first_name = Column(String, unique=True)
     last_name = Column(String, unique=True)
+    age = Column(Integer, unique=True)
+    gender = Column(String, unique=True)
+    height = Column(Integer, unique=True)
+    weight = Column(Integer, unique=True)
+    activity_level = Column(String, unique=True)
+    calorie_goal = Column(Integer, unique=True)
+    bmi = Column(Float, unique=True)
 
-    def __init__(self, username, first_name, last_name, password):
+    def __init__(self, username, first_name, last_name, password, age, gender, height, weight, activity_level, calorie_goal, bmi):
         self.username = username
         self.first_name = first_name
         self.last_name = last_name
         self.set_password(password)
+        self.age = age
+        self.gender = gender
+        self.height = height
+        self.weight = weight
+        self.activity_level = activity_level
+        self.calorie_goal = calorie_goal
+        self.bmi = bmi
 
     def __iter__(self):
-        for key in ["id", "first_name", "last_name", "username"]:
-            # if key in ["account_created", "account_updated"]:
-            #     yield key, parse_timestamp(getattr(self, key))
-            # else:
-                yield key, getattr(self, key)
+        for key in ["id", "first_name", "last_name", "username", "age", "gender", "height", "weight", "activity_level", "calorie_goal", "bmi"]:
+            yield key, getattr(self, key)
 
     def check_password(self, password):
         return bcrypt.checkpw(password.encode('utf-8'), self.enc_password.encode('utf-8'))

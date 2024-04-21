@@ -24,7 +24,7 @@ def authentication():
 auth_user = authentication()
 
 if auth_user[0]:
-    st.title("History")
+    st.title("Preferences")
     # implement here
 
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
