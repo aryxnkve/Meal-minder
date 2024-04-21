@@ -52,7 +52,7 @@ async def authenticate_user(user_input: schemas.UserAuthentication, db: Session 
     return JSONResponse(content=result)
 
 @router.get("/api/v1/user/access_token")
-async def validate_access_token(user_input: str, db: Session = Depends(get_db)):
+async def validate_access_token(user_input: schemas.UserAccessToken, db: Session = Depends(get_db)):
     try:
         result = db_service.validate_access_token(db, user_input)
     except HTTPException as e:

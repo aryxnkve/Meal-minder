@@ -45,8 +45,8 @@ def generate_jwt_token(username, password, user_id):
     access_token = util.create_access_token(data_to_encode)
     return access_token
 
-def validate_access_token(db: Session, access_token):
-    # access_token = user_input.access_token
+def validate_access_token(db: Session, user_input: schemas.UserAccessToken):
+    access_token = user_input.access_token
     if not access_token:
         raise HTTPException("No access token found!")
     decoded_data = util.decode_token(access_token)
