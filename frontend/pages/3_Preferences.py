@@ -23,6 +23,7 @@ if 'food_preferences' not in st.session_state:
     st.session_state.food_preferences = {
         'access_token': None,
         'is_vegetarian': False,
+        'cuisine': [],
         'dishes': [],
         'ingredients': [],
         'allergies': []
@@ -35,14 +36,33 @@ def authentication():
 auth_user = authentication()
 # auth_user = ("sayali")
 
-dish_options = ['Pizza', 'Pasta', 'Burger', 'Salad', 'Sushi', 'Tacos', 'Curry', 'Stew', 'Soup', 'Grilled Cheese']
+cuisine_options = ['Indian', 'American', 'Chinese', 'Italian', 'Thai', 'Korean', 'Mexican']
+dish_options = ['Pizza', 'Pasta', 'Burger', 'Salad', 'Sushi', 'Tacos', 'Curry', 'Biryani', 'Soup', 'Grilled Cheese']
 ingredient_options = ['Tomatoes', 'Cheese', 'Chicken', 'Beef', 'Mushrooms', 'Onions', 'Peppers', 'Garlic', 'Basil', 'Cilantro']
 allergy_options = ['Nuts', 'Dairy', 'Gluten', 'Shellfish', 'Eggs', 'Soy', 'Wheat', 'Peanuts', 'Tree Nuts', 'Fish']
+
+
+def get_user_preferences():
+    exists, pref = backend.get_user_preferences(st.session_state.auth_token)
+    if exists:
+        print("Got exisitng preferences", pref)
+        print(map(str.strip, pref["allergies"].split(',')))
+        st.session_state.food_preferences['is_vegetarian'] = pref["is_vegetarian"]
+        st.session_state.food_preferences['cuisine'] = map(str.strip, pref["cuisine"].split(',')) if (len(pref["cuisine"]) > 0) else None
+        st.session_state.food_preferences['dishes'] = map(str.strip, pref["dishes"].split(',')) if (len(pref["dishes"]) > 0) else None
+        st.session_state.food_preferences['ingredients'] = map(str.strip, pref["ingredients"].split(',')) if (len(pref["ingredients"]) > 0) else None
+        st.session_state.food_preferences['allergies'] = map(str.strip, pref["allergies"].split(',')) if (len(pref["allergies"]) > 0) else None
+
+
 
 # Function to display food preferences form
 def display_food_preferences():
     # Checkbox for vegetarian selection
     st.session_state.food_preferences['is_vegetarian'] = st.checkbox("Are you a vegetarian?", value=st.session_state.food_preferences['is_vegetarian'])
+
+    # Multiselect for cuisine
+    st.subheader("Cuisine")
+    st.session_state.food_preferences['cuisine'] = st.multiselect("Select your favorite cuisine:", options=cuisine_options, default=st.session_state.food_preferences['cuisine'])
 
     # Multiselect for dishes
     st.subheader("Dishes")
@@ -59,14 +79,12 @@ def display_food_preferences():
     # Submit button
     if st.button("Submit Preferences"):
         st.session_state.food_preferences['access_token'] = st.session_state.auth_token
-        # st.session_state.food_preferences['dishes'] = ', '.join(st.session_state.food_preferences['dishes'])
-        # st.session_state.food_preferences['ingredients'] = ', '.join(st.session_state.food_preferences['ingredients'])
-        # st.session_state.food_preferences['allergies'] = ', '.join(st.session_state.food_preferences['allergies'])
         response = set_user_preferences(st.session_state.food_preferences)
         if response:
             st.success("Your food preferences have been saved!", icon="✅")
-            st.write(st.session_state.food_preferences)
+            # st.write(st.session_state.food_preferences)
             st.write("Vegetarian:", "Yes" if st.session_state.food_preferences['is_vegetarian'] else "No")
+            st.write("Favorite Cuisines:", ', '.join(st.session_state.food_preferences['cuisine']))
             st.write("Favorite Dishes:", ', '.join(st.session_state.food_preferences['dishes']))
             st.write("Favorite Ingredients:", ', '.join(st.session_state.food_preferences['ingredients']))
             st.write("Allergies:", ', '.join(st.session_state.food_preferences['allergies']))
@@ -77,7 +95,16 @@ def display_food_preferences():
 
 if auth_user[0]:
     st.title("Preferences")
-    # implement here
+    # get exisitn user pref if any
+    # exists, pref = backend.get_user_preferences(st.session_state.auth_token)
+    # if exists:
+    #     print("Got exisitng preferences", pref)
+    #     st.session_state.food_preferences['is_vegetarian'] = pref["is_vegetarian"]
+    #     st.session_state.food_preferences['cuisine'] = pref["cuisine"]
+    #     st.session_state.food_preferences['dishes'] = pref["dishes"]
+    #     st.session_state.food_preferences['ingredients'] = pref["ingredients"]
+    #     st.session_state.food_preferences['allergies'] = pref["allergies"]
+    get_user_preferences()
     # Call the function to display the form
     display_food_preferences()  
 

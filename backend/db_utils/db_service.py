@@ -86,6 +86,7 @@ def set_user_preferences(db: Session, user_input: schemas.UserPreferences):
 
         # create model
         db_pref = models.Preferences( user_id=user_id,
+                                     cuisine = user_input.cuisine,
                                     dishes=user_input.dishes,
                                     is_vegetarian=user_input.is_vegetarian,
                                     ingredients=user_input.ingredients,

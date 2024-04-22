@@ -6,6 +6,7 @@ from jose import jwt
 from datetime import datetime, timedelta
 import os
 import openai
+import csv
 
 def generate_file_name():
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")  # Format: YYYYMMDD_HHMMSS
@@ -41,6 +42,15 @@ def decode_token(access_token):
     decoded_token = jwt.decode(
         access_token, SECRET_KEY, algorithms=[ALGORITHM])
     return decoded_token
+
+def get_data():
+    file_path = os.getenv("CSV_FILE_PATH")
+    data = []
+    with open(file_path, 'r') as file:
+        csv_reader = csv.DictReader(file)
+        for row in csv_reader:
+            data.append(dict(row))
+    return data
 
 
 def compare_time(token_time: int):

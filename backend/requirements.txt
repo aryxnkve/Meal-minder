@@ -13,3 +13,4 @@ sqlmodel
 bcrypt
 python-jose
 pydantic
+google-generativeai

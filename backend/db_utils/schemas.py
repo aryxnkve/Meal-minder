@@ -25,6 +25,7 @@ class UserAccessToken(BaseModel):
 
 class UserPreferences(UserAccessToken):
     is_vegetarian: bool
+    cuisine: str
     dishes: str
     ingredients: str
     allergies: str

@@ -64,19 +64,21 @@ class Preferences(Base):
     preference_id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), unique=True)
     is_vegetarian = Column(Boolean)
+    cuisine = Column(String)
     dishes = Column(String)
     ingredients = Column(String)
     allergies = Column(String)
 
-    def __init__(self, user_id, is_vegetarian, dishes, ingredients, allergies) -> None:
+    def __init__(self, user_id, is_vegetarian, cuisine, dishes, ingredients, allergies) -> None:
         self.user_id = user_id
         self.is_vegetarian = is_vegetarian
+        self.cuisine = cuisine
         self.dishes = dishes
         self.ingredients = ingredients
         self.allergies = allergies
 
     def __iter__(self):
-        for key in ["preference_id", "user_id", "is_vegetarian", "dishes", "ingredients", "allergies"]:
+        for key in ["preference_id", "user_id", "is_vegetarian","cuisine", "dishes", "ingredients", "allergies"]:
             yield key, getattr(self, key)
     
     def set_preference_id(self, id):

@@ -92,7 +92,7 @@ def show_bmi():
     
     st.subheader(f"Your ideal daily calorie intake should be {suggested_daily_calorie}")
     calculate_bmi(info["height"], info["weight"])
-    calorie_goal = st.slider('Feel free to set your calorie goal below:', 0, 2000, suggested_daily_calorie)
+    calorie_goal = st.slider('Feel free to set your calorie goal below:', 500, 4000, suggested_daily_calorie)
     st.session_state.info["calorie_goal"] = calorie_goal
     submitted = st.button("Register")
     if submitted:
@@ -116,7 +116,7 @@ def basic_register():
     col1, col2 = st.columns(2)
     with col1:
         age = st.number_input('Age',value=26, min_value=0, max_value=100, format='%d')
-        height = st.number_input('Height (cm)',value=138, min_value=0)
+        height = st.number_input('Height (cm)',value=161, min_value=0)
 
         goal = st.radio("What's your fitness goal?", 
                         ["🏋️‍♂️ Lose weight", "⚖️ Maintain weight", "🥛 Gain weight"])
