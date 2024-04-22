@@ -64,11 +64,11 @@ def calculate_daily_calorie(sex, height, weight, age, activity_level, goal):
         bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age)
 
     # Adjust BMR based on activity level
-    activity_factors = {"Sedentary": 1.2, 
-                        "Lightly active": 1.375, 
-                        "Moderately active": 1.55, 
-                        "Very active": 1.725, 
-                        "Extra active": 1.9}
+    activity_factors = {"🖥️ Sedentary": 1.2, 
+                        "🧘 Lightly active": 1.375, 
+                        "🚴 Moderately active": 1.55, 
+                        "🏋️ Very active": 1.725, 
+                        "🧗 Extra active": 1.9}
     calories = bmr * activity_factors[activity_level]
 
     # Adjust calories based on goal

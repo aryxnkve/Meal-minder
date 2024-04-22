@@ -35,6 +35,9 @@ def authentication():
 auth_user = authentication()
 # auth_user = ("sayali")
 
+dish_options = ['Pizza', 'Pasta', 'Burger', 'Salad', 'Sushi', 'Tacos', 'Curry', 'Stew', 'Soup', 'Grilled Cheese']
+ingredient_options = ['Tomatoes', 'Cheese', 'Chicken', 'Beef', 'Mushrooms', 'Onions', 'Peppers', 'Garlic', 'Basil', 'Cilantro']
+allergy_options = ['Nuts', 'Dairy', 'Gluten', 'Shellfish', 'Eggs', 'Soy', 'Wheat', 'Peanuts', 'Tree Nuts', 'Fish']
 
 # Function to display food preferences form
 def display_food_preferences():
@@ -43,33 +46,30 @@ def display_food_preferences():
 
     # Multiselect for dishes
     st.subheader("Dishes")
-    dish_options = ['Pizza', 'Pasta', 'Burger', 'Salad', 'Sushi', 'Tacos', 'Curry', 'Stew', 'Soup', 'Grilled Cheese']
     st.session_state.food_preferences['dishes'] = st.multiselect("Select your favorite dishes:", options=dish_options, default=st.session_state.food_preferences['dishes'])
 
     # Multiselect for ingredients
     st.subheader("Ingredients")
-    ingredient_options = ['Tomatoes', 'Cheese', 'Chicken', 'Beef', 'Mushrooms', 'Onions', 'Peppers', 'Garlic', 'Basil', 'Cilantro']
     st.session_state.food_preferences['ingredients'] = st.multiselect("Select your favorite ingredients:", options=ingredient_options, default=st.session_state.food_preferences['ingredients'])
 
     # Multiselect for allergies
     st.subheader("Allergies")
-    allergy_options = ['Nuts', 'Dairy', 'Gluten', 'Shellfish', 'Eggs', 'Soy', 'Wheat', 'Peanuts', 'Tree Nuts', 'Fish']
     st.session_state.food_preferences['allergies'] = st.multiselect("Select your allergies (if any):", options=allergy_options, default=st.session_state.food_preferences['allergies'])
 
     # Submit button
     if st.button("Submit Preferences"):
         st.session_state.food_preferences['access_token'] = st.session_state.auth_token
-        st.session_state.food_preferences['dishes'] = ', '.join(st.session_state.food_preferences['dishes'])
-        st.session_state.food_preferences['ingredients'] = ', '.join(st.session_state.food_preferences['ingredients'])
-        st.session_state.food_preferences['allergies'] = ', '.join(st.session_state.food_preferences['allergies'])
+        # st.session_state.food_preferences['dishes'] = ', '.join(st.session_state.food_preferences['dishes'])
+        # st.session_state.food_preferences['ingredients'] = ', '.join(st.session_state.food_preferences['ingredients'])
+        # st.session_state.food_preferences['allergies'] = ', '.join(st.session_state.food_preferences['allergies'])
         response = set_user_preferences(st.session_state.food_preferences)
         if response:
             st.success("Your food preferences have been saved!", icon="✅")
-            # st.write(st.session_state.food_preferences)
+            st.write(st.session_state.food_preferences)
             st.write("Vegetarian:", "Yes" if st.session_state.food_preferences['is_vegetarian'] else "No")
-            st.write("Favorite Dishes:", st.session_state.food_preferences['dishes'])
-            st.write("Favorite Ingredients:", st.session_state.food_preferences['ingredients'])
-            st.write("Allergies:", st.session_state.food_preferences['allergies'])
+            st.write("Favorite Dishes:", ', '.join(st.session_state.food_preferences['dishes']))
+            st.write("Favorite Ingredients:", ', '.join(st.session_state.food_preferences['ingredients']))
+            st.write("Allergies:", ', '.join(st.session_state.food_preferences['allergies']))
         else:
             st.error(f'There was an error. Details: {response[1]}', icon="🚨")
         

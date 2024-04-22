@@ -53,8 +53,16 @@ def validate_access_token(access_token):
 
 def set_user_preferences(preferences):
     url = f"{BACKEND_API_URL}/api/v1/user/preferences"
-    payload = preferences
+
+    payload = dict()
+    payload["access_token"] = preferences['access_token']
+    payload["is_vegetarian"] = preferences['is_vegetarian']
+    payload['dishes'] = ', '.join(preferences['dishes'])
+    payload['ingredients'] = ', '.join(preferences['ingredients'])
+    payload['allergies'] = ', '.join(preferences['allergies'])
+    
     json_payload = json.dumps(payload)
+    print("Preferences payload = ", payload)
 
     response = requests.request("POST", url, headers=headers, data=json_payload)
     if response.status_code == 200:

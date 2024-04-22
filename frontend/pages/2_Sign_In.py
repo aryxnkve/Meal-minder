@@ -29,8 +29,8 @@ if auth_user[0]:
     
 else:
     st.title("Sign In")
-    username = st.text_input('Email')
-    password = st.text_input('Password', type='password')
+    username = st.text_input('Email', "sayali@gmail.com")
+    password = st.text_input('Password',"sayali123", type='password')
     if st.button("Sign In"):
         response = user_login()
         if response[0]:
