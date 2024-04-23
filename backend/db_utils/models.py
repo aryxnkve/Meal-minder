@@ -16,15 +16,15 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True)
     enc_password = Column(String)
-    first_name = Column(String, unique=True)
-    last_name = Column(String, unique=True)
-    age = Column(Integer, unique=True)
-    gender = Column(String, unique=True)
-    height = Column(Integer, unique=True)
-    weight = Column(Integer, unique=True)
-    activity_level = Column(String, unique=True)
-    calorie_goal = Column(Integer, unique=True)
-    bmi = Column(Float, unique=True)
+    first_name = Column(String)
+    last_name = Column(String)
+    age = Column(Integer)
+    gender = Column(String)
+    height = Column(Integer)
+    weight = Column(Integer)
+    activity_level = Column(String)
+    calorie_goal = Column(Integer)
+    bmi = Column(Float)
 
     def __init__(self, username, first_name, last_name, password, age, gender, height, weight, activity_level, calorie_goal, bmi):
         self.username = username
@@ -57,6 +57,28 @@ class User(Base):
             raise HTTPException(status_code=500, detail=
                 'Password must be between 8 and 50 characters')
         self.enc_password = get_hashed_password(password).decode('utf-8')
+
+class WeeklyCalories(Base):
+    __tablename__ = "weekly_calories"
+
+    weekly_calories_id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), unique=True)
+    timestamp = Column(DateTime, nullable=False, default=datetime.now())
+    dish_name = Column(String)
+    file_link = Column(String)
+    calories = Column(Integer)
+
+    def __init__(self, user_id, timestamp, dish_name,file_link, calories) -> None:
+        self.user_id = user_id
+        self.dish_name = dish_name
+        self.file_link = file_link
+        self.calories = calories
+        self.timestamp = timestamp
+
+    def __iter__(self):
+        for key in ["weekly_calories_id", "user_id", "timestamp","dish_name", "file_link", "calories"]:
+            yield key, getattr(self, key)
+
 
 class Preferences(Base):
     __tablename__ = "preferences"

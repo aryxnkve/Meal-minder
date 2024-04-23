@@ -54,11 +54,17 @@ def get_dishes():
         print("Some error occurred", response)
         return None
     
+def get_remaining_calories():
+    status, response = backend.get_remaining_calories(st.session_state.auth_token)
+    if status:
+        return response
+    else:
+        print("Some error occurred", response)
+        return 0
+    
 def set_stage(stage):
     if stage == 'suggest_dish_start':
         st.session_state.history += "  \n                                         💬 Yes please!  \n  \n"
-    # if stage == 'suggest_dish':
-    #     st.session_state.history += "  \n                                         💬 Suggest something else  \n  \n"
     if stage == 'get_method':
         st.session_state.history += "  \n                                            💬 Looks Yummy!  \n  \n"
     if stage == 'end_convo':
@@ -78,8 +84,8 @@ print(st.session_state.stage)
 if auth_user[0]:
     container = st.container()
     container.title("🥗 Meal Suggestions")
-    # implement here
-    remaining_calories = 500
+
+    remaining_calories = get_remaining_calories()
     container.markdown(f'**You are still left with {remaining_calories} calories for the day!**')
 
     convo_container = st.container()
@@ -100,7 +106,6 @@ if auth_user[0]:
                 with st.spinner("🍲 Hang in tight ..."):
                     (dish_names, description) = get_dishes()
 
-        # if st.session_state.stage != 'suggest_dish_radio':
         if st.session_state.dish_names:
             question = f"👨🏻‍🍳 Based on your preferences, here are some dishes that you might like.  \n"
             st.markdown(question)
@@ -116,22 +121,6 @@ if auth_user[0]:
             st.button("Suggest something else", on_click=set_stage, args=('suggest_dish',))
         with col2:
             st.button("Show recipe", on_click=set_stage, args=('show_recipe',))
-   
-    if st.session_state.stage == 'get_method':
-        question = "👨🏻‍🍳 Great! What's the plan now?  \n"
-        st.write(question)
-        st.session_state.history += question
-        col1, col2 = st.columns(2)
-        with col1:
-            pressed3 = st.button("I'll order for myself.", on_click=set_stage, args=('end_convo',))
-        with col2:
-            pressed4 = st.button("I'm cooking", on_click=set_stage, args=('suggest_recipe',))
-
-    if st.session_state.stage == 'end_convo':
-        question = "👨🏻‍🍳 Have a great meal and don't forget to post capture your calories!  \n"
-        st.write(question)
-        st.session_state.history += question
-        st.button("Reset", on_click=set_stage, args=('reset',))
 
     if st.session_state.stage == 'show_recipe':
         question = f"👨🏻‍🍳 Great! Below is the recipe:  \n  \n"
@@ -143,7 +132,7 @@ if auth_user[0]:
                 question += f'**Calories per serving:** {dish["Calories per serving"]}  \n  \n'
                 question += f'**Recipe Ingredients:** {dish["Recipe Ingredients"]}  \n  \n'
                 question += f'**How to Cook:** {dish["How to Cook"]}  \n  \n'
-                question += f'📸 Do not forget to capture the calories!  \n  \n'
+                question += f'📸 Have a great meal and do not forget to capture the calories!  \n  \n'
                 break
         convo_container.markdown(question)
         st.session_state.history += question
@@ -153,8 +142,6 @@ if auth_user[0]:
         with col2:
             st.button("Reset", on_click=set_stage, args=('reset',))
         
-
-    
 else:
     st.warning('Access Denied! Please Sign In to your account.', icon="⚠️")
 

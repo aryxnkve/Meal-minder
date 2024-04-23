@@ -6,6 +6,7 @@ from datetime import datetime
 import os
 import logging
 from utils import util
+from sqlalchemy.sql import func
 
 def create_user(db: Session, user: schemas.UserCreate):
     if get_user_by_username(db, user.username):
@@ -28,6 +29,11 @@ def create_user(db: Session, user: schemas.UserCreate):
 
 def get_user_by_username(db: Session, username):
     result_user = db.query(models.User).filter(models.User.username == username).first()
+    print("FOUND IN DB", result_user)
+    return result_user
+
+def get_user_by_userid(db: Session, user_id):
+    result_user = db.query(models.User).filter(models.User.id == user_id).first()
     print("FOUND IN DB", result_user)
     return result_user
 
@@ -114,4 +120,13 @@ def set_user_preferences(db: Session, user_input: schemas.UserPreferences):
         print("Error occurred ", str(e))
         raise Exception
 
+
+def get_total_cal_by_userid(db: Session, user_id):
+    result_user = db.query(func.count(models.WeeklyCalories.calories).filter(models.WeeklyCalories.user_id == user_id))
+    print(result_user)
+    if result_user.first():
+        print("FOUND IN DB", result_user.first())
+        return result_user.first()[0]
+    else:
+        return None
 

@@ -98,3 +98,17 @@ def get_suggested_dishes(auth_token):
         return True, response.json()
     else:
         return False, response.json().get("detail")
+
+def get_remaining_calories(auth_token):
+    url = f"{BACKEND_API_URL}/api/v1/user/get-remaining-calories"
+
+    payload = {
+        "access_token": auth_token
+    }
+    json_payload = json.dumps(payload)
+
+    response = requests.request("POST", url, headers=headers, data=json_payload)
+    if response.status_code == 200:
+        return True, response.json()
+    else:
+        return False, ""
