@@ -35,8 +35,12 @@ def suggest_dish(db: Session, user_input: schemas.UserAccessToken):
 
             print("Final list of dishes", dish_names)
             print("final list of ingredients", ingredients)
+
+            # get the remaining calories for the day
+            calorie_limit = 500
+
             # prompt gemini to generate similar dishes
-            response = gemini_helper.prompt_gemini(user_preferences.cuisine, user_preferences.dishes, dish_names, ingredients)
+            response = gemini_helper.prompt_gemini(calorie_limit, user_preferences.cuisine, user_preferences.dishes, dish_names, ingredients)
             
         return response
     except Exception as e:

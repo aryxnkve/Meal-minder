@@ -48,6 +48,8 @@ async def get_user_preferences(user_input: schemas.UserAccessToken, db: Session 
         existing_pref = db_service.get_pref_by_userid(db, user_id)
         if existing_pref:
             result = dict(existing_pref.first())
+        else:
+            raise HTTPException(status_code = 204, detail = r"User preferences not found")
     except HTTPException as e:
         raise e
     except Exception as e:

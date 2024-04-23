@@ -83,7 +83,7 @@ def get_user_preferences(auth_token):
     if response.status_code == 200:
         return True, response.json()
     else:
-        return False, response.json().get("detail")
+        return False, ""
     
 def get_suggested_dishes(auth_token):
     url = f"{BACKEND_API_URL}/api/v1/user/suggest-dish"

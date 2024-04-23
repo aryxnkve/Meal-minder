@@ -6,7 +6,7 @@ GOOGLE_API_KEY = 'AIzaSyDuw6LR8R4ilR3aCNcf08py2ybRlfVh5d8'
 # os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=GOOGLE_API_KEY)
 
-def prompt_gemini(cuisine_str, preferred_dishes_str, similar_dishes_list, ingredients_list):
+def prompt_gemini(calorie_limit, cuisine_str, preferred_dishes_str, similar_dishes_list, ingredients_list):
     genai.configure(api_key=GOOGLE_API_KEY)
     model = genai.GenerativeModel('gemini-pro')
     # Create the prompt using an f-string
@@ -16,9 +16,10 @@ def prompt_gemini(cuisine_str, preferred_dishes_str, similar_dishes_list, ingred
 
     prompt = (
         f"Based on my preference for {cuisine_str} cuisines and enjoyment of dishes like {preferred_dishes_str}, "
-        f"which incorporate ingredients such as {preferred_ingredients_str}, I am looking for new culinary ideas. "
-        f"Could you generate a list of 20 new dish names that include similar flavors and ingredients, "
-        f"focusing on {cuisine_str} cuisines? Additionally, consider similar dishes like {similar_dishes_str} for inspiration. "
+        f"which incorporate ingredients such as {preferred_ingredients_str}, and considering a calorie limit of {calorie_limit} calories per dish, "
+        f"Could you suggest a list of 10 new dish names that include similar flavors and ingredients, "
+        f"focusing on {cuisine_str} cuisines, and are within this calorie range? Make sure you do not mix the cuisines. "+
+        f"Additionally, consider similar dishes like {similar_dishes_str} for inspiration. "
         f"Give me the dish name and a one liner about the dish. "
     )
     response = model.generate_content(prompt)
