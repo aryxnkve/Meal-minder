@@ -1,5 +1,5 @@
 python-dotenv
 streamlit
 streamlit-lottie
-streamlit-authenticator
 boto3
+streamlit_extras
