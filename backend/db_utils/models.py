@@ -60,7 +60,7 @@ class WeeklyCalories(Base):
     __tablename__ = "weekly_calories"
 
     weekly_calories_id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    user_id = Column(Integer, ForeignKey("users.id"), unique=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
     timestamp = Column(DateTime, nullable=False, default=datetime.now())
     dish_name = Column(String, nullable=False)
     file_link = Column(String, nullable=False, unique=True)
