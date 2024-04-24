@@ -14,3 +14,6 @@ bcrypt
 python-jose
 pydantic
 google-generativeai
+openai
+pandas
+pinecone-client
