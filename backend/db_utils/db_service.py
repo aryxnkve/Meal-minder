@@ -7,6 +7,7 @@ import os
 import logging
 from utils import util
 from sqlalchemy.sql import func
+from sqlalchemy import and_
 
 def create_user(db: Session, user: schemas.UserCreate):
     if get_user_by_username(db, user.username):
@@ -129,4 +130,18 @@ def get_total_cal_by_userid(db: Session, user_id):
         return result_user.first()[0]
     else:
         return None
+    
+def get_weekly_calories_by_userid(db: Session, user_id, start_of_week, end_of_week):
+
+        results = db.query(models.WeeklyCalories.dish_name, models.WeeklyCalories.calories, models.WeeklyCalories.timestamp).\
+            filter(and_(
+                models.WeeklyCalories.timestamp >= start_of_week,
+                models.WeeklyCalories.timestamp <= end_of_week
+            )).all()
+        if results:
+            print("Found weekly calories in db for user", user_id)
+            return results
+        else:
+            print("Weekly calories not found for user", user_id)
+            return None
 

@@ -1,10 +1,8 @@
 from fastapi import APIRouter
 from dotenv import dotenv_values
-from fastapi import FastAPI, HTTPException, Depends, status
+from fastapi import HTTPException, Depends
 from sqlalchemy.orm import Session
-from typing import List
 from fastapi.responses import JSONResponse
-import db_utils.models as models
 from helpers import meal_suggestion_helper
 
 from db_utils import SessionLocal, schemas, db_service

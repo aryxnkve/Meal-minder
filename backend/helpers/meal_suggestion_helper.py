@@ -1,11 +1,9 @@
 from sqlalchemy.orm import Session
-import db_utils.models as models
 import db_utils.schemas as schemas
 
 from utils import util
 from db_utils import db_service
 from helpers import pinecone_helper, snowflake_helper, gemini_helper
-from fastapi import HTTPException
 
 import re
 

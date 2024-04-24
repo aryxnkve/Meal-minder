@@ -77,7 +77,6 @@ class WeeklyCalories(Base):
         for key in ["weekly_calories_id", "user_id", "timestamp","dish_name", "file_link", "calories"]:
             yield key, getattr(self, key)
 
-
 class Preferences(Base):
     __tablename__ = "preferences"
 
