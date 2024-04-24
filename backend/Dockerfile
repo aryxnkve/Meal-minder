@@ -10,9 +10,13 @@ RUN pip install --upgrade pip
 WORKDIR /app
 # Change working dir to app
 
-ADD .env main.py requirements.txt model.py database.py /app/
+# ADD .env main.py requirements.txt model.py database.py /app/
+ADD .env main.py requirements.txt /app/
 ADD routers /app/routers/
 ADD utils /app/utils/
+ADD helpers /app/helpers/
+ADD db_utils /app/db_utils/
+ADD data /app/data/
 # Copy main.py and requirements.txt from local into app dir inside the container
 
 RUN pip install -r requirements.txt
