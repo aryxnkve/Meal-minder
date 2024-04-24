@@ -6,25 +6,23 @@ import bcrypt
 from sqlalchemy.orm import validates, relationship
 import re
 from fastapi import HTTPException
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
+from db_utils import Base
 
 class User(Base):
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     username = Column(String, unique=True)
-    enc_password = Column(String)
-    first_name = Column(String)
-    last_name = Column(String)
-    age = Column(Integer)
-    gender = Column(String)
-    height = Column(Integer)
-    weight = Column(Integer)
-    activity_level = Column(String)
-    calorie_goal = Column(Integer)
-    bmi = Column(Float)
+    enc_password = Column(String, nullable=False)
+    first_name = Column(String, nullable=False)
+    last_name = Column(String, nullable=False)
+    age = Column(Integer, nullable=False)
+    gender = Column(String, nullable=False)
+    height = Column(Integer, nullable=False)
+    weight = Column(Integer, nullable=False)
+    activity_level = Column(String, nullable=False)
+    calorie_goal = Column(Integer, nullable=False)
+    bmi = Column(Float, nullable=False)
 
     def __init__(self, username, first_name, last_name, password, age, gender, height, weight, activity_level, calorie_goal, bmi):
         self.username = username
@@ -61,12 +59,12 @@ class User(Base):
 class WeeklyCalories(Base):
     __tablename__ = "weekly_calories"
 
-    weekly_calories_id = Column(Integer, primary_key=True, index=True)
+    weekly_calories_id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("users.id"), unique=True)
     timestamp = Column(DateTime, nullable=False, default=datetime.now())
-    dish_name = Column(String)
-    file_link = Column(String)
-    calories = Column(Integer)
+    dish_name = Column(String, nullable=False)
+    file_link = Column(String, nullable=False, unique=True)
+    calories = Column(Integer, nullable=False)
 
     def __init__(self, user_id, timestamp, dish_name,file_link, calories) -> None:
         self.user_id = user_id
@@ -83,7 +81,7 @@ class WeeklyCalories(Base):
 class Preferences(Base):
     __tablename__ = "preferences"
 
-    preference_id = Column(Integer, primary_key=True, index=True)
+    preference_id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("users.id"), unique=True)
     is_vegetarian = Column(Boolean)
     cuisine = Column(String)

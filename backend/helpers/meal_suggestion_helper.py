@@ -25,39 +25,39 @@ def suggest_dish(db: Session, user_input: schemas.UserAccessToken):
         else:
             calorie_limit = total_calories
 
-        # # get preferences for this user
-        # existing_pref = db_service.get_pref_by_userid(db, user_id)
-        # if existing_pref:
-        #     user_preferences = existing_pref.first()
-        #     print(user_preferences.dishes)
-        #     # get most similar dishes to user preferences dishes
-        #     id_list = pinecone_helper.get_similar_dish_ids(user_preferences.dishes)
-        #     # print("Got these similar ids from pinecone = ", id_list)
+        # get preferences for this user
+        existing_pref = db_service.get_pref_by_userid(db, user_id)
+        if existing_pref:
+            user_preferences = existing_pref.first()
+            print(user_preferences.dishes)
+            # get most similar dishes to user preferences dishes
+            id_list = pinecone_helper.get_similar_dish_ids(user_preferences.dishes)
+            # print("Got these similar ids from pinecone = ", id_list)
 
-        #     # get dish names from snowflake database
-        #     dishes = snowflake_helper.get_recipe_data(','.join(id_list))
-        #     dish_names = []
-        #     ingredients = []
-        #     for row in range(len(dishes)):
-        #         dish_names.append(dishes[row][1])
-        #         ingredients.append(dishes[row][2])
-        #     # dish_names.append(user_preferences.dishes)
-        #     ingredients.append(user_preferences.ingredients)
+            # get dish names from snowflake database
+            dishes = snowflake_helper.get_recipe_data(','.join(id_list))
+            dish_names = []
+            ingredients = []
+            for row in range(len(dishes)):
+                dish_names.append(dishes[row][1])
+                ingredients.append(dishes[row][2])
+            # dish_names.append(user_preferences.dishes)
+            ingredients.append(user_preferences.ingredients)
 
-        #     # print("Final list of dishes", dish_names)
-        #     # print("final list of ingredients", ingredients)
+            # print("Final list of dishes", dish_names)
+            # print("final list of ingredients", ingredients)
 
-        #     # prompt gemini to generate similar dishes
-        #     response = gemini_helper.prompt_gemini(calorie_limit, user_preferences.cuisine, user_preferences.dishes, dish_names, ingredients)
-        # else:
-        #     print("No preferences found for this user.")
-        #     response = gemini_helper.prompt_gemini_general(calorie_limit)
-        # dish_details = parse_dish_details(response)
-        # response_obj = {
-        #     "response_text": response,
-        #     "response_list": dish_details
-        # }
-        # return response_obj
+            # prompt gemini to generate similar dishes
+            response = gemini_helper.prompt_gemini(calorie_limit, user_preferences.cuisine, user_preferences.dishes, dish_names, ingredients)
+        else:
+            print("No preferences found for this user.")
+            response = gemini_helper.prompt_gemini_general(calorie_limit)
+        dish_details = parse_dish_details(response)
+        response_obj = {
+            "response_text": response,
+            "response_list": dish_details
+        }
+        return response_obj
     except Exception as e:
         print("Error occurred ", str(e))
         raise Exception
