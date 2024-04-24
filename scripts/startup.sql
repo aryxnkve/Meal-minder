@@ -80,8 +80,54 @@ insert into preferences(
 
 select * from preferences;
 
+create table weekly_calories(
+	weekly_calories_id serial primary key,
+	user_id integer not null,
+	dish_name varchar(255),
+	file_link varchar(255),
+	calories integer,
+	timestamp timestamp,
+	CONSTRAINT fk_user
+      FOREIGN KEY(user_id) 
+        REFERENCES users(ID)
+);
+
+insert into weekly_calories(
+	user_id,
+	dish_name,
+	file_link,
+	calories,
+	timestamp
+) values(
+	9, 'Chicken Tikka Masala', 'https:/gcp/storage/link', 800, '2024-01-01 18:10:57'
+);
+
+insert into weekly_calories(
+	user_id,
+	dish_name,
+	file_link,
+	calories,
+	timestamp
+) values(
+	9, 'Avacado Toast', 'https:/gcp/storage/link', 200, '2024-01-01 07:10:57'
+);
+
+insert into weekly_calories(
+	user_id,
+	dish_name,
+	file_link,
+	calories,
+	timestamp
+) values(
+	9, 'Aloo Gobi with Naan', 'https:/gcp/storage/link', 900, '2024-01-01 23:10:57'
+);
+
+select * from weekly_calories;
+
+-- truncate table weekly_calories;
+
 -- truncate table preferences;
 
 -- truncate table users CASCADE;
 
--- drop table preferences;
+-- drop table weekly_calories;
