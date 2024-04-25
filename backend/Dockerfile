@@ -17,13 +17,17 @@ ADD utils /app/utils/
 ADD helpers /app/helpers/
 ADD db_utils /app/db_utils/
 ADD data /app/data/
+ADD tests /app/tests/
 # Copy main.py and requirements.txt from local into app dir inside the container
 
 RUN pip install -r requirements.txt
 # Refering to copied file inside the app dir install the user dependency
 
+
+
 EXPOSE 8095
 # Expose a port inside the container on which services run
 
+# CMD ["pytest"]
 CMD ["uvicorn", "main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "8095", "--timeout-keep-alive", "120"]
 # gunicorn command to run the service with 4 worker nodes binding localhost/0.0.0.0 on port 8095 refering app inside the main.py
