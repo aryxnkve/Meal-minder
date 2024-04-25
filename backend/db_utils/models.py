@@ -102,3 +102,25 @@ class Preferences(Base):
     
     def set_preference_id(self, id):
         self.preference_id = id
+
+  
+class WeeklyCalories(Base):
+    __tablename__ = "weekly_calories"
+
+    weekly_calories_id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    timestamp = Column(DateTime, nullable=False, default=datetime.now())
+    dish_name = Column(String, nullable=False)
+    file_link = Column(String, nullable=False, unique=True)
+    calories = Column(Integer, nullable=False)
+
+    def __init__(self, user_id, timestamp, dish_name,file_link, calories) -> None:
+        self.user_id = user_id
+        self.dish_name = dish_name
+        self.file_link = file_link
+        self.calories = str(calories)
+        self.timestamp = timestamp
+
+    def __iter__(self):
+        for key in ["weekly_calories_id", "user_id", "timestamp","dish_name", "file_link", "calories"]:
+            yield key, getattr(self, key)

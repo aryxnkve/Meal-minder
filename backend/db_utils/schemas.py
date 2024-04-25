@@ -29,3 +29,9 @@ class UserPreferences(UserAccessToken):
     dishes: str
     ingredients: str
     allergies: str
+
+class WeeklyCalories(UserAccessToken):
+    dish_name : str
+    file_link : str
+    calories : str
+    timestamp : datetime

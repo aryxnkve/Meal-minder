@@ -145,3 +145,29 @@ def get_weekly_calories_by_userid(db: Session, user_id, start_of_week, end_of_we
             print("Weekly calories not found for user", user_id)
             return None
 
+
+def set_weekly_calorie(db: Session, user_input: schemas.WeeklyCalories):
+    try:
+        # decode token and get user id
+        decoded_info = util.decode_token(user_input.access_token)
+        user_id = decoded_info.get("user_id")
+        print("Got user id", user_id)
+
+
+
+        db_weeklyCal = models.WeeklyCalories( user_id=user_id,
+                                     dish_name = user_input.dish_name,
+                                    file_link=user_input.file_link,
+                                    calories=str(user_input.calories),
+                                    timestamp=user_input.timestamp
+                                    )
+
+
+        db.add(db_weeklyCal)
+        print("Adding calorie")
+        db.commit()
+        db.refresh(db_weeklyCal)
+        return True
+    except Exception as e:
+        print("Error occurred ", str(e))
+        raise Exception
