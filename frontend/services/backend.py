@@ -18,7 +18,7 @@ headers = {'Content-Type': 'application/json'}
 
 # Google Cloud Storage credentials and bucket
 BUCKET_NAME = os.getenv('BUCKET_NAME')
-CREDENTIALS_PATH = os.getenv('GCP_SERVICE_ACCOUNT_KEY_PATH')
+CREDENTIALS_PATH = os.getenv('GCP_SERVICE_ACCOUNT_KEY')
 
 def create_user(info):
     url = f"{BACKEND_API_URL}/api/v1/register_user"
