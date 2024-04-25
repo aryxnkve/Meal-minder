@@ -84,6 +84,15 @@ jobs:
       
     - name: Copy .env file to airflow
       run: cp .env ./airflow/config
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+          python-version: 3.8
+          
+    - name: Test code
+      run: |
+          python -m unittest tests/pytest/default.py
       
     - name: Build the Docker image
       run: docker-compose build
