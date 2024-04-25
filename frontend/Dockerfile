@@ -8,7 +8,7 @@ WORKDIR /app
 # COPY .env main.py menu.py service.py config.yaml requirements.txt ./
 # COPY .env main.py menu.py config.yaml requirements.txt ./
 
-COPY .env main.py requirements.txt ./
+COPY .env gcp_credentials.json main.py requirements.txt ./
 COPY pages /app/pages
 COPY services /app/services
 # COPY UIenv /app/UIenv
