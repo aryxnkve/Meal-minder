@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 import db_utils.schemas as schemas
+from fastapi import HTTPException
 
 from utils import util
 from db_utils import db_service
@@ -46,4 +47,19 @@ def fetch_calories_by_day(db: Session, user_input: schemas.UserAccessToken):
                 day_of_week_data[day_of_week].append((dish_name, calories))
     print("Day of week data", day_of_week_data)
     return day_of_week_data
+
+def get_user_calorie_goal(db: Session, user_input: schemas.UserAccessToken):
+
+    access_token = user_input.access_token
+    # decode token and get user id
+    decoded_info = util.decode_token(access_token)
+    user_id = decoded_info.get("user_id")
+    print("Got user id", user_id)
+
+    user_data = db_service.get_user_by_userid(db, user_id)
+    if user_data:
+        return user_data.calorie_goal
+    else:
+        raise HTTPException(
+                status_code=500, detail=f"User not found")
 

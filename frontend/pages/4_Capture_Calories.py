@@ -21,6 +21,13 @@ st.set_page_config(
 if 'auth_token' not in st.session_state:
     st.session_state.auth_token = None
 
+if 'capture_pressed' not in st.session_state:
+    st.session_state.capture_pressed = False
+
+if 'calorie_response' not in st.session_state:
+    st.session_state.calorie_response = None
+
+
 def authentication():
     response = backend.validate_access_token(st.session_state.auth_token)
     return response
@@ -34,9 +41,6 @@ def extract_name(api_response):
     return t[2]
 
 def extract_calories(api_response):
-    """Extract the total calories from the API response."""
-    
-    pattern = r"\*\*Total Calories:\*\*\s*(\d+)\s*calories"
     calories_info = api_response.get("response", "")
     calories_info = calories_info.replace('**','')
 
@@ -45,72 +49,73 @@ def extract_calories(api_response):
     return int(match.group(1)) if match else 996
 
 
-
-
-def process_additional_action(calories):
-    """Function to be called when the text box is clicked."""
-    st.write(f"Processing with {calories} calories...")  # Placeholder function
-
-
 def upload_page():
-    st.title("Upload and Send Image")
     uploaded_file = st.file_uploader("Choose an image...", type=['jpg', 'png'])
-    labels = ""
 
     if uploaded_file is not None:
         # Display the uploaded image
         image = backend.resize_image(uploaded_file)
         st.image(image, caption='Uploaded Image.')
-    calorie , dish_name = "",""
-    if uploaded_file is not None:
-        # Display the image
-        if st.button("Calorie Capture"):
-            ## 
-            # store image to bucket 
-            ##
-            # status, response1 = backend.get_calorie_type(uploaded_file)
-            # if status:
-            #     print(status, response1 )
-            #     data = response1
-            #     # Create a list to store only the labels
-            #     labels = ' ,'.join([item['label'] for item in data[:3]])
-            #     st.write("Detected items:", labels)
-            # else:
-            #     st.error("Failed to process image. Please re-upload the image -->" + response1)
-            # print('part2 in calorie count')
-            status, response2 = backend.get_calorie(uploaded_file.getvalue(),"labels")
-            # st.write("calculated calories:", response2)
 
+        calorie , dish_name = "",""
+        if st.button("Capture Calories"):
+            with st.spinner("Calculating calories ... "):
+                status, response2 = backend.get_calorie(uploaded_file.getvalue())
+
+            st.session_state.capture_pressed = True
             if status:
-                st.markdown(response2['response'.replace('\\n','\n')], unsafe_allow_html=True)
-                calorie = extract_calories(response2)
-                dish_name = extract_name(response2)
-                # Create a text input for editing calorie count
-        calories = st.text_input("Enter Calories", value=f"{calorie}")
-        dish_name =st.text_input("Name of the dish", value=f"{dish_name}") 
-        if st.button("Confirm"):
-            try:
-                print('2')
-                print(dish_name)
-                gcplink = "https://"
-                print('3')
-                status, response = backend.insert_calories(st.session_state.auth_token ,dish_name,calories,gcplink )
-                if status: 
-                    st.write('Calories successfully updated')
-                else:
-                    print('error')
-                    st.write(response)
-            except Exception as e:
-                print(str(e))
-            # process_confirmation(edited_calories)
-            # --> storage link --> get markdown  --> parse calorie --> make calories editable  --> submit it to weekly user
+                st.session_state.calorie_response = response2
 
+        if  st.session_state.calorie_response and st.session_state.capture_pressed:
+            st.subheader("Caloric Details :")
+            st.markdown(st.session_state.calorie_response['response'.replace('\\n','\n')], unsafe_allow_html=True)
+
+            if st.session_state.capture_pressed:
+                st.divider()
+                st.write("Feel free to edit the details below:")
+                final_dish_name =st.text_input("Name of the dish", value=f"{extract_name(st.session_state.calorie_response)}") 
+                final_calories = st.text_input("Enter Calories", value=f"{extract_calories(st.session_state.calorie_response)}")
+
+                if st.button("Confirm"):
+                    print("Clicked confirm")
+
+                    with st.spinner("Recording your calories ..."):
+                        file_link = ''
+                        if uploaded_file:
+                            timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+                            file_name = f"{timestamp}_{str(uuid.uuid4())}.png"
+                            # upload to gcp
+                            file_link = backend.upload_image_to_gcs(uploaded_file, file_name)
+                            print("GCP file link = ",file_link)
+                        status2 = backend.insert_calories(st.session_state.auth_token ,final_dish_name, final_calories, file_link )
+                    
+                    if status2: 
+                        st.success('Captured your Calories!', icon="🎉")
+                    else:
+                        st.error('Somthing went wrong. Please try again', icon="🚨")
+    
             
+def insert_page():
+    st.write("What did you have today?")
+    final_dish_name =st.text_input("Name of the dish") 
+    final_calories = st.text_input("Enter Calories")
+
+    if st.button("Confirm Insert"):
+        with st.spinner("Recording your calories ..."):
+            status2 = backend.insert_calories(st.session_state.auth_token ,final_dish_name, final_calories, '' )
+        if status2: 
+            st.success('Captured your Calories!', icon="🎉")
+        else:
+            st.error('Somthing went wrong. Please try again', icon="🚨")            
 
 if auth_user[0]:
     st.title("Capture Calories")
     # implement here
-    upload_page()
-    
+    tab1, tab2 = st.tabs(["Upload", "Insert"])
+    with tab1:
+        upload_page()
+    with tab2:
+        insert_page()
+   
 else:
     st.warning('Access Denied! Please Sign In to your account.', icon="⚠️")

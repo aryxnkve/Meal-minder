@@ -21,7 +21,7 @@ desired_output_format = """ The output for each dish should strictly follow the 
 def prompt_gemini(calorie_limit, cuisine_str, preferred_dishes_str, similar_dishes_list, ingredients_list):
     genai.configure(api_key=GOOGLE_API_KEY)
     model = genai.GenerativeModel('gemini-pro')
-    # Create the prompt using an f-string
+    
     # Convert lists to comma-separated strings
     preferred_ingredients_str = ", ".join(ingredients_list)
     similar_dishes_str = ", ".join(similar_dishes_list)
@@ -35,67 +35,62 @@ def prompt_gemini(calorie_limit, cuisine_str, preferred_dishes_str, similar_dish
         desired_output_format
         )
     response = model.generate_content(prompt)
-    print("Gemini Reponse:")
-    print(response.text)
     return response.text
 
 
 def prompt_gemini_general(calorie_limit=500):
     genai.configure(api_key=GOOGLE_API_KEY)
     model = genai.GenerativeModel('gemini-pro')
-    # Create the prompt using an f-string
+
     prompt = """Generate a list of 5 dishes, each with a detailed description, calorie count, ingredients, and cooking instructions.
     Please ensure that each dish is under """ + str(calorie_limit) + """calories. 
     Include a range of ingredients to cater to different dietary preferences and cuisines.
     """ + desired_output_format
     
     response = model.generate_content(prompt)
-    # print("Gemini Reponse:")
-    # print(response.text)
     return response.text
 
 
-def vision_calorie(list_of_content, files: UploadFile):
-    # Read image data from the uploaded file asynchronously if this is an async context
+def vision_calorie(files: UploadFile):
     try: 
-        image_data = files.file.read()  # `file.file` gives access to a SpooledTemporaryFile
-        # Reset the file pointer to the beginning after reading
-        # file.file.seek(0)
-        # Prepare the image data for the API
-        # The API might expect a dict with 'data' key containing the image
-        # Assuming it accepts PIL images directly or you might need to adjust how the image is sent
+        image_data = files.file.read()  
+        
         cookie_picture = {
             'mime_type': files.content_type,
             'data': image_data  # Assuming the API can take a PIL Image object directly
         }
-        
-        # Prompt for the AI model
-        prompt = """
-        
-        what should be the calorie content of the dish in this photo, 
-        determine the dish and explain how you get to the conclusion of calorie count, 
-        formulate the respose as given below.
-        The output for each dish should strictly follow the format like:
+
+        output_format = """The output for each dish should strictly follow the format like:
                 **Name:** "Name of the dish"
-                **Content:** "list ingredient of the dish and their quantities "
-                **Calories Per content:** "Number of calories for each content used."
-                **Total Calories:** "total calorie of the dish based on content and serving size"
-                **Calculation:** "Exaplin how Total calories are calculated based on content and serving size, and calorie of each content "
-    
+                **Calories Per content:** "Number of calories for each ingredient of the dish and their quantities."
+                **Total Calories:** "total calories of the dish based on content and for one serving size"
+                **Calculation:** "Mathematical calulation of Total calories of the dish based on content for one serving size, and calories of each ingredient. "
         """
+        
+        prompt = """Given an image of a dish, please perform the following tasks:
+
+        Identify the Dish: Start by identifying the name of the dish shown in the image.
+        List the Ingredients: Detail all visible ingredients that are likely part of the dish for one serving size. Please consider common recipes and ingredients typically used in this dish based on its identification.
+        Calculate Calories:
+        Individual Ingredients: For each listed ingredient, provide an estimated calorie count per serving size. Utilize standard nutritional values from common food databases or nutritional labels.
+        Total Calories: Sum the calories of each ingredient to calculate the total caloric content of one serving of the dish.
+        Verification: After calculating, please double-check your mathematical calculations and verify that the sum of the individual ingredient calories accurately matches the total calories reported.
+        Objective: The aim is to provide a detailed breakdown of the dish's components and their respective caloric contributions, leading to an accurate total caloric intake for one serving.
+
+        """+ output_format+"""
+        Additional Notes:
+
+        Accuracy is key, so please ensure all calculations are precise and double-checked.
+        Consider variations in ingredient sizes and preparation methods that may affect the calorie count."""
         
         # Initialize the genai model
         model = genai.GenerativeModel('gemini-pro-vision')
         
         # Generate content based on the image and the prompt
-        response = model.generate_content([prompt, cookie_picture]
-        )
+        response = model.generate_content([prompt, cookie_picture])
     except Exception as e:
         print(str(e))
     
-    # Assuming response has a 'text' attribute with the relevant information
     return {"response": response.text}
 
 
-if __name__ == '__main__':
-    prompt_gemini_general()

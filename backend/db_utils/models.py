@@ -56,26 +56,26 @@ class User(Base):
                 'Password must be between 8 and 50 characters')
         self.enc_password = get_hashed_password(password).decode('utf-8')
 
-# class WeeklyCalories(Base):
-#     __tablename__ = "weekly_calories"
+class WeeklyCalories(Base):
+    __tablename__ = "weekly_calories"
 
-#     weekly_calories_id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-#     user_id = Column(Integer, ForeignKey("users.id"))
-#     timestamp = Column(DateTime, nullable=False, default=datetime.now())
-#     dish_name = Column(String, nullable=False)
-#     file_link = Column(String, nullable=False, unique=True)
-#     calories = Column(Integer, nullable=False)
+    weekly_calories_id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    timestamp = Column(DateTime, nullable=False, default=datetime.now())
+    dish_name = Column(String, nullable=False)
+    file_link = Column(String, nullable=True)
+    calories = Column(Integer, nullable=False)
 
-#     def __init__(self, user_id, timestamp, dish_name,file_link, calories) -> None:
-#         self.user_id = user_id
-#         self.dish_name = dish_name
-#         self.file_link = file_link
-#         self.calories = calories
-#         self.timestamp = timestamp
+    def __init__(self, user_id, timestamp, dish_name,file_link, calories) -> None:
+        self.user_id = user_id
+        self.dish_name = dish_name
+        self.file_link = file_link
+        self.calories = calories
+        self.timestamp = timestamp
 
-#     def __iter__(self):
-#         for key in ["weekly_calories_id", "user_id", "timestamp","dish_name", "file_link", "calories"]:
-#             yield key, getattr(self, key)
+    def __iter__(self):
+        for key in ["weekly_calories_id", "user_id", "timestamp","dish_name", "file_link", "calories"]:
+            yield key, getattr(self, key)
 
 class Preferences(Base):
     __tablename__ = "preferences"
@@ -104,23 +104,3 @@ class Preferences(Base):
         self.preference_id = id
 
   
-class WeeklyCalories(Base):
-    __tablename__ = "weekly_calories"
-
-    weekly_calories_id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
-    timestamp = Column(DateTime, nullable=False, default=datetime.now())
-    dish_name = Column(String, nullable=False)
-    file_link = Column(String, nullable=False, unique=True)
-    calories = Column(Integer, nullable=False)
-
-    def __init__(self, user_id, timestamp, dish_name,file_link, calories) -> None:
-        self.user_id = user_id
-        self.dish_name = dish_name
-        self.file_link = file_link
-        self.calories = str(calories)
-        self.timestamp = timestamp
-
-    def __iter__(self):
-        for key in ["weekly_calories_id", "user_id", "timestamp","dish_name", "file_link", "calories"]:
-            yield key, getattr(self, key)

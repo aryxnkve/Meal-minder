@@ -15,8 +15,8 @@ SNOWFLAKE_WAREHOUSE = os.getenv("SNOWFLAKE_WAREHOUSE")
 SNOWFLAKE_SCHEMA = os.getenv("SNOWFLAKE_SCHEMA")
 TABLE_NAME = os.getenv("TABLE_NAME")
 
-def connectionToSnow(path='../config/.env',connection_test=False):
-    load_dotenv(path,override=True)
+def connectionToSnow(connection_test=False):
+    # load_dotenv(path,override=True)
     # user, password, _, account_identifier,_ = loadenv()
     engine = create_engine(
         'snowflake://{user}:{password}@{account_identifier}/'.format(

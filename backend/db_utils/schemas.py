@@ -33,5 +33,5 @@ class UserPreferences(UserAccessToken):
 class WeeklyCalories(UserAccessToken):
     dish_name : str
     file_link : str
-    calories : str
+    calories : int
     timestamp : datetime

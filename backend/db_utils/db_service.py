@@ -153,15 +153,12 @@ def set_weekly_calorie(db: Session, user_input: schemas.WeeklyCalories):
         user_id = decoded_info.get("user_id")
         print("Got user id", user_id)
 
-
-
         db_weeklyCal = models.WeeklyCalories( user_id=user_id,
                                      dish_name = user_input.dish_name,
                                     file_link=user_input.file_link,
-                                    calories=str(user_input.calories),
+                                    calories=user_input.calories,
                                     timestamp=user_input.timestamp
                                     )
-
 
         db.add(db_weeklyCal)
         print("Adding calorie")

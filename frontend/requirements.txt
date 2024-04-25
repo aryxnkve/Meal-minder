@@ -5,3 +5,4 @@ boto3
 streamlit_extras
 plotly
 matplotlib
+google-cloud-storage
