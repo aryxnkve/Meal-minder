@@ -41,8 +41,62 @@ jobs:
       TABLE_NAME: ${{ secrets.TABLE_NAME }}
       GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
       BACKEND_API_URL: ${{ secrets.BACKEND_API_URL }}
-
+    
     steps:
+
     - uses: actions/checkout@v4
+    - name: Create .env file
+      run: |
+          echo "SNOWFLAKE_USER=${{ secrets.SNOWFLAKE_USER }}" > .env
+          echo "SNOWFLAKE_PASSWORD=${{ secrets.SNOWFLAKE_PASSWORD }}" >> .env
+          echo "SNOWFLAKE_ACCOUNT=${{ secrets.SNOWFLAKE_ACCOUNT }}" >> .env
+          echo "SNOWFLAKE_WAREHOUSE=${{ secrets.SNOWFLAKE_WAREHOUSE }}" >> .env
+          echo "SNOWFLAKE_DATABASE=${{ secrets.SNOWFLAKE_DATABASE }}" >> .env
+          echo "SNOWFLAKE_SCHEMA=${{ secrets.SNOWFLAKE_SCHEMA }}" >> .env
+          echo "GCP_SERVICE_ACCOUNT_KEY_PATH=${{ secrets.GCP_SERVICE_ACCOUNT_KEY_PATH }}" >> .env
+          echo "BUCKET_NAME=${{ secrets.BUCKET_NAME }}" >> .env
+          echo "BLOB_NAME=${{ secrets.BLOB_NAME }}" >> .env
+          echo "TABLE_NAME_AIRFLOW=${{ secrets.TABLE_NAME_AIRFLOW }}" >> .env
+          echo "CSV_SOURCE_PATH=${{ secrets.CSV_SOURCE_PATH }}" >> .env
+          echo "PINECONE_API_KEY=${{ secrets.PINECONE_API_KEY }}" >> .env
+          echo "PINECONE_NAMESPACE_1=${{ secrets.PINECONE_NAMESPACE_1 }}" >> .env
+          echo "PINECONE_NAMESPACE_2=${{ secrets.PINECONE_NAMESPACE_2 }}" >> .env
+          echo "PINECONE_INDEX_NAME=${{ secrets.PINECONE_INDEX_NAME }}" >> .env
+          echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> .env
+          echo "EMBEDDING_MODEL=${{ secrets.EMBEDDING_MODEL }}" >> .env
+          echo "BUCKET_FOLDER_NAME=${{ secrets.BUCKET_FOLDER_NAME }}" >> .env
+          echo "AIRFLOW_UID=${{ secrets.AIRFLOW_UID }}" >> .env
+          echo "AIRFLOW_PROJ_DIR=${{ secrets.AIRFLOW_PROJ_DIR }}" >> .env
+          echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> .env
+          echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
+          echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> .env
+          echo "POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}" >> .env
+          echo "DISHES_NAMESPACE=${{ secrets.DISHES_NAMESPACE }}" >> .env
+          echo "INGREDIENTS_NAMESPACE=${{ secrets.INGREDIENTS_NAMESPACE }}" >> .env
+          echo "TABLE_NAME=${{ secrets.TABLE_NAME }}" >> .env
+          echo "GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}" >> .env
+          echo "BACKEND_API_URL=${{ secrets.BACKEND_API_URL }}" >> .env
+
+    - name: Copy .env file to backend
+      run: cp .env ./backend/
+      
+    - name: Copy .env file to backend
+      run: cp .env ./frontend/
+      
+    - name: Copy .env file to backend
+      run: cp .env ./airflow/config
+      
     - name: Build the Docker image
       run: docker-compose build
+      
+    - name: Delete Temporary .env1
+      run: rm .env
+      
+    - name: Delete Temporary .env1
+      run: rm ./airflow/config/.env
+      
+    - name: Delete Temporary .env1
+      run: rm ./backend/.env
+      
+    - name: Delete Temporary .env1
+      run: rm ./frontend/.env
