@@ -90,14 +90,12 @@ services:
 
   postgres:
     image: postgres:13
-    ports:
-        - "5432:5432"
     environment:
       POSTGRES_USER: airflow
       POSTGRES_PASSWORD: airflow
       POSTGRES_DB: airflow
     volumes:
-      - postgres-db-volume:/var/lib/postgresql/data
+      - postgres-db-volume-airflow:/var/lib/postgresql/data
     healthcheck:
       test: [ "CMD", "pg_isready", "-U", "airflow" ]
       interval: 10s
@@ -314,6 +312,23 @@ services:
     env_file:
       - .env
 
+  postgresdb:
+    image: postgres:13
+    container_name: postgresdb
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+        - "5432:5432"
+    env_file:
+      - .env
+    volumes:
+      - postgres-db-volume-mydb:/var/lib/postgresql/data
+
+
   fastapi:
     container_name: fastapi
     build: 
@@ -326,4 +341,5 @@ services:
       - .env
 
 volumes:
-  postgres-db-volume:
+  postgres-db-volume-mydb:
+  postgres-db-volume-airflow:

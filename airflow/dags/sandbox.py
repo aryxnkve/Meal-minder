@@ -46,7 +46,7 @@ bucket_name = os.getenv('BUCKET_NAME')
 # Local file path
 local_file_path = os.getenv('CSV_SOURCE_PATH')
 bucket_folder_name = os.getenv('BUCKET_FOLDER_NAME')
-table_name = os.getenv('TABLE_NAME')
+table_name = os.getenv('TABLE_NAME_AIRFLOW')
 
 def upload_csv2gcp_main():
 
@@ -110,7 +110,7 @@ def upload_gcp2snowflake_main():
     snowflake_warehouse = os.getenv('SNOWFLAKE_WAREHOUSE')
     snowflake_database = os.getenv('SNOWFLAKE_DATABASE')
     snowflake_schema = os.getenv('SNOWFLAKE_SCHEMA')
-    table_name = os.getenv('TABLE_NAME')
+    table_name = os.getenv('TABLE_NAME_AIRFLOW')
 
     # Connect to Snowflake
     conn = snowflake.connector.connect(
@@ -208,7 +208,7 @@ def upload_embeddings2pinecone_test(*op_args):
 
     # Cursor to execute SQL queries
     cur = conn.cursor()
-    table_name = os.getenv('TABLE_NAME')
+    table_name = os.getenv('TABLE_NAME_AIRFLOW')
 
     # Get the total number of rows in the table
     cur.execute(f"SELECT COUNT(*) FROM {table_name}")
