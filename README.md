@@ -32,7 +32,7 @@ ChineseFoodNet aims to automatically recognizing pictured Chinese dishes. Most o
 
 A novel food image data set with volume and mass records of foods, and a deep learning method for food detection, to make a complete calorie estimation. The data set includes 2978 images, and every image contains corresponding each food's annotation, volume and mass records, as well as a certain calibration reference. To estimate calorie of food in the proposed data set, a deep learning method using Faster R-CNN first is put forward to detect the food. And the experiment results show our method is effective to estimate calories and our data set contains adequate information for calorie estimation. Our data set is the first released food image data set which can be used to evaluate computer vision-based calorie estimation methods.
 
-## Tools and Technologies
+## Tools and Technologies:
 
 - FrontEnd : StreamLit
 - Backend : FastAPI
