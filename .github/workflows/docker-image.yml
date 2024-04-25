@@ -11,6 +11,36 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+      SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+      SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+      SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+      SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
+      SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
+      GCP_SERVICE_ACCOUNT_KEY_PATH: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY_PATH }}
+      BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
+      BLOB_NAME: ${{ secrets.BLOB_NAME }}
+      TABLE_NAME_AIRFLOW: ${{ secrets.TABLE_NAME_AIRFLOW }}
+      CSV_SOURCE_PATH: ${{ secrets.CSV_SOURCE_PATH }}
+      PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
+      PINECONE_NAMESPACE_1: ${{ secrets.PINECONE_NAMESPACE_1 }}
+      PINECONE_NAMESPACE_2: ${{ secrets.PINECONE_NAMESPACE_2 }}
+      PINECONE_INDEX_NAME: ${{ secrets.PINECONE_INDEX_NAME }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      EMBEDDING_MODEL: ${{ secrets.EMBEDDING_MODEL }}
+      BUCKET_FOLDER_NAME: ${{ secrets.BUCKET_FOLDER_NAME }}
+      AIRFLOW_UID: ${{ secrets.AIRFLOW_UID }}
+      AIRFLOW_PROJ_DIR: ${{ secrets.AIRFLOW_PROJ_DIR }}
+      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+      POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+      DISHES_NAMESPACE: ${{ secrets.DISHES_NAMESPACE }}
+      INGREDIENTS_NAMESPACE: ${{ secrets.INGREDIENTS_NAMESPACE }}
+      TABLE_NAME: ${{ secrets.TABLE_NAME }}
+      GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+      BACKEND_API_URL: ${{ secrets.BACKEND_API_URL }}
 
     steps:
     - uses: actions/checkout@v4
