@@ -127,11 +127,11 @@ if auth_user[0]:
         all_dishes = st.session_state.dishes
         for dish in all_dishes:
             if dish["Name"] == st.session_state.selected_dish:
-                question += f'**Name:** {dish["Name"]}  \n  \n'
-                question += f'**Description:** {dish["Description"]}  \n  \n'
-                question += f'**Calories per serving:** {dish["Calories per serving"]}  \n  \n'
-                question += f'**Recipe Ingredients:** {dish["Recipe Ingredients"]}  \n  \n'
-                question += f'**How to Cook:** {dish["How to Cook"]}  \n  \n'
+                question += f'**🥗 Name:** {dish["Name"]}  \n  \n'
+                question += f'**📖 Description:** {dish["Description"]}  \n  \n'
+                question += f'**📈 Calories per serving:** {dish["Calories per serving"]}  \n  \n'
+                question += f'**🥕 Recipe Ingredients:** {dish["Recipe Ingredients"]}  \n  \n'
+                question += f'**🍲 How to Cook:** {dish["How to Cook"]}  \n  \n'
                 question += f'📸 Have a great meal and do not forget to capture the calories!  \n  \n'
                 break
         convo_container.markdown(question)

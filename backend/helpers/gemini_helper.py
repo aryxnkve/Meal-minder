@@ -61,10 +61,10 @@ def vision_calorie(files: UploadFile):
         }
 
         output_format = """The output for each dish should strictly follow the format like:
-                **Name:** "Name of the dish"
-                **Calories Per content:** "Number of calories for each ingredient of the dish and their quantities."
-                **Total Calories:** "total calories of the dish based on content and for one serving size"
-                **Calculation:** "Mathematical calulation of Total calories of the dish based on content for one serving size, and calories of each ingredient. "
+                **Name:** "Name of the dish"\n
+                **Calories Per Ingredient:** "Number of calories for each ingredient of the dish and their quantities."\n
+                **Total Calories:** "total calories of the dish based on content and for one serving size"\n
+                **Calculation:** "Mathematical calulation of Total calories of the dish based on content for one serving size, and calories of each ingredient.\n "
         """
         
         prompt = """Given an image of a dish, please perform the following tasks:
@@ -90,7 +90,9 @@ def vision_calorie(files: UploadFile):
         response = model.generate_content([prompt, cookie_picture])
     except Exception as e:
         print(str(e))
+
+    return response.text
     
-    return {"response": response.text}
+    # return {"response": response.text}
 
 

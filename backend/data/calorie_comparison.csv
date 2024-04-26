@@ -1,0 +1,49 @@
+dish_name,ingredient,gemini_calories,nutrition_api_calories
+Creamy Chicken Pasta with Broccoli,Chicken,300,187
+Creamy Chicken Pasta with Broccoli,Broccoli,50,3.5
+Creamy Chicken Pasta with Broccoli,Pasta,200,195.92
+Creamy Chicken Pasta with Broccoli,Cheese,100,113.12
+Creamy Chicken Pasta with Broccoli,Cream,150,101.32
+Creamy Chicken Pasta with Broccoli,Butter,50,101.81
+Creamy Chicken Pasta with Broccoli,Olive oil,50,119.34
+Creamy Chicken Pasta with Broccoli,Garlic,10,4.47
+Creamy Chicken Pasta with Broccoli,Onion,10,41.36
+Creamy Chicken Pasta with Broccoli,Salt and pepper,5,0.72
+Creamy Chicken Pasta with Bacon and Broccoli,Penne Pasta (1 cup),200,195.92
+Creamy Chicken Pasta with Bacon and Broccoli,Chicken Breast (1/2 cup),170,396
+Creamy Chicken Pasta with Bacon and Broccoli,Bacon (2 slices),100,161.46
+Creamy Chicken Pasta with Bacon and Broccoli,Broccoli (1/2 cup),25,7
+Creamy Chicken Pasta with Bacon and Broccoli,Heavy Cream (1/4 cup),100,405.28
+Creamy Chicken Pasta with Bacon and Broccoli,Parmesan Cheese (1/4 cup),110,84
+Creamy Chicken Pasta with Bacon and Broccoli,Butter (1 tablespoon),100,101.81
+Creamy Chicken Pasta with Bacon and Broccoli,Garlic (1 clove),5,4.47
+Creamy Chicken Pasta with Bacon and Broccoli,Salt and Pepper (to taste),5,0.72
+Creamy Chicken Pasta with Broccoli,Chicken Breast (100g) ,165,198
+Creamy Chicken Pasta with Broccoli,Broccoli (100g) ,34,3.5
+Creamy Chicken Pasta with Broccoli,Penne Pasta (100g) ,160,195.92
+Creamy Chicken Pasta with Broccoli,Olive Oil (1 tbsp) ,119,119.34
+Creamy Chicken Pasta with Broccoli,Garlic (2 cloves) ,10,4.47
+Creamy Chicken Pasta with Broccoli,Onion (1/2 cup) ,17,82.72
+Creamy Chicken Pasta with Broccoli,Heavy Cream (1/2 cup) ,200,202.64
+Creamy Chicken Pasta with Broccoli,Parmesan Cheese (1/4 cup) ,110,84
+Creamy Chicken Pasta with Broccoli,Salt and Pepper (to taste) ,0,0.72
+"**Name:** Masala Dosa
+
+",1 cup of dosa batter,360,137.07
+"**Name:** Masala Dosa
+
+",1/2 cup of potato filling,110,77.19
+"**Name:** Masala Dosa
+
+",1/4 cup of sambar,50,32.48
+"**Name:** Masala Dosa
+
+",1/4 cup of coconut chutney,60,119.83
+"**Name:** Masala Dosa
+
+",1 teaspoon of ghee,45,37.39
+Masala Dosa,1 cup dosa batter,350,137.07
+Masala Dosa,1/2 cup potato filling,110,77.19
+Masala Dosa,1/4 cup sambar,50,32.48
+Masala Dosa,1/4 cup coconut chutney,50,119.83
+Masala Dosa,1 teaspoon ghee,40,37.39

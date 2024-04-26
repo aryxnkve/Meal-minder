@@ -62,35 +62,42 @@ if auth_user[0]:
     weekly_dishes = get_report_api()
     ideal_daily_calories = get_daily_calories()
     ideal_weekly_calories = 7 * ideal_daily_calories
-    # weekly_dishes= {
-    #     'Monday': [('Pasta', 400), ('Salad', 150), ('Veggies', 100)],
-    #     'Tuesday': [('Burger', 500), ('Fries', 300)],
-    #     'Wednesday': [('Chicken', 350), ('Rice', 200)],
-    #     'Thursday': [('Fish', 250), ('Veggies', 100)],
-    #     'Friday': [('Pizza', 480), ('Ice Cream', 330)],
-    #     'Saturday': [('Steak', 550), ('Potato', 220)],
-    #     'Sunday': [('Sushi', 300), ('Soup', 150)]
-    # }
 
+    # Sample data
+    weekly_dishes = {
+        'Monday': [('Pasta', 400), ('Salad', 150), ('Sandwich', 2300)],
+        'Tuesday': [('Burger', 500), ('Fries', 300)],
+        'Wednesday': [('Chicken', 350), ('Rice', 200)],
+        'Thursday': [('Fish', 250), ('Veggies', 100)],
+        'Friday': [('Pizza', 480), ('Ice Cream', 330), ('Apple Pie', 1200)],
+        'Saturday': [('Steak', 550), ('Potato', 220)],
+        'Sunday': [('Sushi', 300), ('Soup', 150)]
+    }
 
-    # Function to create a progress bar image and return colors
     def create_progress_bar(dishes):
         fig, ax = plt.subplots(figsize=(4, 0.25))  # Wide and short figure
         total_calories = sum(cal for _, cal in dishes)
-        colors = plt.cm.Wistia(np.linspace(0, 1, len(dishes)))
-        start = 0
-        for (dish, calories), color in zip(dishes, colors):
-            # if start + calories > ideal_daily_calories:
-            #     color = 'red'  # Change color to red if going over the ideal calories
-            ax.barh(0, calories, left=start, color=color, height=1)
-            start += calories
-        ax.set_xlim(0, max(total_calories, ideal_daily_calories))  # Adjust xlim to show overconsumption
+
+        # Determine the color based on the comparison of total_calories with ideal_daily_calories
+        calorie_diff = ideal_daily_calories - total_calories
+        if abs(calorie_diff) <= 50 or calorie_diff == 0:
+            color = 'green'
+        elif calorie_diff < 0:
+            color = 'red'
+        elif calorie_diff > 0:
+            color = 'blue'
+        
+
+        # Draw a single bar with the total calories
+        ax.barh(0, total_calories, left=0, color=color, height=1)
+        ax.set_xlim(0, ideal_daily_calories)  # Set x-axis limit to ideal_daily_calories
+
         ax.axis('off')  # Hide axes
         buf = BytesIO()
         plt.savefig(buf, format='png', bbox_inches='tight', pad_inches=0)
         plt.close(fig)
         buf.seek(0)
-        return buf, colors
+        return buf
 
 
     # Creating a dataframe
@@ -98,24 +105,25 @@ if auth_user[0]:
     total_sum = 0
     for day, dishes in weekly_dishes.items():
         total_sum = sum(cal for dish, cal in dishes)
-        calorie_diff = ideal_daily_calories - total_sum
-        if abs(calorie_diff) <= 50 or calorie_diff == 0:
-            diff = f"✅ Goal acheived!"
-        elif calorie_diff < 0 :
-            diff = f"🔺 {abs(calorie_diff)} cal"
-        elif calorie_diff > 0:
-            diff = f"🔹 {calorie_diff} cal"
+        calorie_str = f"{total_sum}/{ideal_daily_calories}"
+        # calorie_diff = ideal_daily_calories - total_sum
+        # if abs(calorie_diff) <= 50 or calorie_diff == 0:
+        #     diff = f"✅ Goal acheived!"
+        # elif calorie_diff < 0 :
+        #     diff = f"🔺 {abs(calorie_diff)} cal"
+        # elif calorie_diff > 0:
+        #     diff = f"🔹 {calorie_diff} cal"
+
         dishes_str = ', '.join([f"{dish} ({cal} cal)" for dish, cal in dishes])
 
-        # progress_image, colors = create_progress_bar(dishes)
-        # Prepare dishes string with HTML color tags
-        # dishes_str = ', '.join([f"<span style='color:{rgb2hex(color)};'>{dish} ({cal} cal)</span>" for (dish, cal), color in zip(dishes, colors)])
-        data.append([day, dishes_str, total_sum, diff])
+        progress_image = create_progress_bar(dishes)
+
+        data.append([day, dishes_str, progress_image, calorie_str])
+        # data.append([day, dishes_str, total_sum, diff])
 
 
 
     df = pd.DataFrame(data, columns=['Day', 'Dishes', 'Progress', 'Calories'])
-    # print(df)
 
     # Calculate total daily calories and prepare data for the charts
     days = list(weekly_dishes.keys())
@@ -200,24 +208,26 @@ if auth_user[0]:
         cols = st.columns([1,2,2,1])
         cols[0].write(row['Day'])
         cols[1].write(row['Dishes'], unsafe_allow_html=True)
-        print(row['Progress'])
-        calorie_diff = ideal_daily_calories - row['Progress']
-        print("calorie diff = ", calorie_diff)
-        if abs(calorie_diff) <= 50 or calorie_diff == 0:
-            display_val = f"{row['Progress']}/{ideal_daily_calories}"
-            val = 100
-        elif calorie_diff > 50 :
-            display_val = f"{row['Progress']}/{ideal_daily_calories}"
-            val = round((calorie_diff / ideal_daily_calories) * 100)
-        elif calorie_diff < -50:
-            display_val = f"{abs(row['Progress'])}/{ideal_daily_calories}"
-            val = 100
-        print(display_val, val)
-        
-        probar = cols[2].progress(0, text=display_val)
-        probar.progress(val, text=display_val)
 
-        # cols[2].image(row['Progress'], use_column_width=True)
+        # print(row['Progress'])
+        # calorie_diff = ideal_daily_calories - row['Progress']
+        # print("calorie diff = ", calorie_diff)
+        # if abs(calorie_diff) <= 50 or calorie_diff == 0:
+        #     display_val = f"{row['Progress']}/{ideal_daily_calories}"
+        #     val = 100
+        # elif calorie_diff > 50 :
+        #     display_val = f"{row['Progress']}/{ideal_daily_calories}"
+        #     val = round((calorie_diff / ideal_daily_calories) * 100)
+        # elif calorie_diff < -50:
+        #     display_val = f"{abs(row['Progress'])}/{ideal_daily_calories}"
+        #     val = 100
+        # print(display_val, val)
+        # if row['Progress'] == 0:
+        #     val = 0
+        # probar = cols[2].progress(0, text=display_val)
+        # probar.progress(val, text=display_val)
+
+        cols[2].image(row['Progress'], use_column_width=True)
         cols[3].write(row['Calories'])
 
    

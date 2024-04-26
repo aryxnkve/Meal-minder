@@ -23,7 +23,7 @@ def connectionToSnow(connection_test=False):
             user=SNOWFLAKE_USER,
             password=SNOWFLAKE_PASSWORD,
             account_identifier=SNOWFLAKE_ACCOUNT,
-        )
+        ), connect_args={'client_session_keep_alive': True}
     )
     try:
         connection = engine.connect()

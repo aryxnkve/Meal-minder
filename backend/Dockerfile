@@ -11,7 +11,7 @@ WORKDIR /app
 # Change working dir to app
 
 # ADD .env main.py requirements.txt model.py database.py /app/
-ADD .env main.py requirements.txt /app/
+ADD .env main.py gcp_credentials.json requirements.txt /app/
 ADD routers /app/routers/
 ADD utils /app/utils/
 ADD helpers /app/helpers/

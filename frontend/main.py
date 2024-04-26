@@ -1,10 +1,5 @@
 
 import streamlit as st
-import requests
-
-
-
-import streamlit as st
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -13,6 +8,7 @@ st.set_page_config(
     page_title="NutriBuddy",
     page_icon="🌱",
 )
+
 col1, col2, col3 = st.columns(3)
 with col2:
     st.title("NutriBuddy")
