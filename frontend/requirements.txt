@@ -6,3 +6,5 @@ streamlit_extras
 plotly
 matplotlib
 google-cloud-storage
+requests
+pytest
