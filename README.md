@@ -77,12 +77,16 @@ The recipes dataset contains 522,517 recipes from 312 different categories. This
 
 ## Tools and Technologies:
 
-- FrontEnd : StreamLit
-- Backend : FastAPI
-- Database : PostGreSQL
-- Cloud : GCP
-- Create Embeddings: DistilBERT
-- Automation : Airflow
+[![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue)](https://www.python.org/)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=white)](https://streamlit.io/)
+[![Snowflake](https://img.shields.io/badge/snowflake-%234285F4?style=for-the-badge&logo=snowflake&link=https%3A%2F%2Fwww.snowflake.com%2Fen%2F%3F_ga%3D2.41504805.669293969.1706151075-1146686108.1701841103%26_gac%3D1.160808527.1706151104.Cj0KCQiAh8OtBhCQARIsAIkWb68j5NxT6lqmHVbaGdzQYNSz7U0cfRCs-STjxZtgPcZEV-2Vs2-j8HMaAqPsEALw_wcB&logoColor=white)
+](https://www.snowflake.com/en/?_ga=2.41504805.669293969.1706151075-1146686108.1701841103&_gac=1.160808527.1706151104.Cj0KCQiAh8OtBhCQARIsAIkWb68j5NxT6lqmHVbaGdzQYNSz7U0cfRCs-STjxZtgPcZEV-2Vs2-j8HMaAqPsEALw_wcB)
+[![Apache Airflow](https://img.shields.io/badge/Airflow-yellow?style=for-the-badge&logo=Apache%20Airflow&logoColor=blue)](https://airflow.apache.org/)
+[![FastAPI](https://img.shields.io/badge/fastapi-109989?style=for-the-badge&logo=FASTAPI&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Docker](https://img.shields.io/badge/Docker-%232496ED?style=for-the-badge&logo=Docker&color=blue&logoColor=white)](https://www.docker.com)
+[![Google Cloud](https://img.shields.io/badge/Google_Cloud-%234285F4.svg?style=for-the-badge&logo=google-cloud&logoColor=white)](https://cloud.google.com)
+[![Hugging Face](https://img.shields.io/badge/Hugging_Face-gray?style=for-the-badge)](https://huggingface.co)
 
 ## Pipelines
 
@@ -97,6 +101,14 @@ The recipes dataset contains 522,517 recipes from 312 different categories. This
 #### Create Embeddings
 
 ![Architecture Diagram ](images/3.png)
+
+## Big Data Systems and Intelligence Analytics (DAMG 7245)
+
+| Name         | Email                        | NUID    | Contribution |
+| ------------ | ---------------------------- | ------- | ------------ |
+| Ameya Apte   | apte.ame@northeastern.edu    | 2764540 | 33%          |
+| Sayali Dalvi | dalvi.sa@northeastern.edu    | 2799803 | 34%          |
+| Soeb Hussain | hussain.soe@northeastern.edu | 2747200 | 33%          |
 
 ## References
 
