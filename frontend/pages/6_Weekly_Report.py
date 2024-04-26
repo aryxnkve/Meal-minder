@@ -50,29 +50,11 @@ auth_user = authentication()
 
 if auth_user[0]:
     # implement here
-    # st.balloons()
-    
-    # rain(
-    #     emoji="🎖",
-    #     font_size=54,
-    #     falling_speed=5,
-    #     animation_length="infinite",
-    # )
 
     weekly_dishes = get_report_api()
     ideal_daily_calories = get_daily_calories()
     ideal_weekly_calories = 7 * ideal_daily_calories
 
-    # Sample data
-    weekly_dishes = {
-        'Monday': [('Pasta', 400), ('Salad', 150), ('Sandwich', 2300)],
-        'Tuesday': [('Burger', 500), ('Fries', 300)],
-        'Wednesday': [('Chicken', 350), ('Rice', 200)],
-        'Thursday': [('Fish', 250), ('Veggies', 100)],
-        'Friday': [('Pizza', 480), ('Ice Cream', 330), ('Apple Pie', 1200)],
-        'Saturday': [('Steak', 550), ('Potato', 220)],
-        'Sunday': [('Sushi', 300), ('Soup', 150)]
-    }
 
     def create_progress_bar(dishes):
         fig, ax = plt.subplots(figsize=(4, 0.25))  # Wide and short figure

@@ -90,6 +90,7 @@ def upload_page():
                         status2 = backend.insert_calories(st.session_state.auth_token ,final_dish_name, final_calories, file_link )
                     
                     if status2: 
+                        st.balloons()
                         st.success('Captured your Calories!', icon="🎉")
                     else:
                         st.error('Somthing went wrong. Please try again', icon="🚨")

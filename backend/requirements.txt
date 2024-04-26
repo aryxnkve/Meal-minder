@@ -20,3 +20,5 @@ pinecone-client
 Pillow
 requests
 xmltodict
+torch
+transformers
