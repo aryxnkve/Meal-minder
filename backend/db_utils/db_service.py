@@ -135,6 +135,7 @@ def get_weekly_calories_by_userid(db: Session, user_id, start_of_week, end_of_we
 
         results = db.query(models.WeeklyCalories.dish_name, models.WeeklyCalories.calories, models.WeeklyCalories.timestamp).\
             filter(and_(
+                models.WeeklyCalories.user_id == user_id,
                 models.WeeklyCalories.timestamp >= start_of_week,
                 models.WeeklyCalories.timestamp <= end_of_week
             )).all()
