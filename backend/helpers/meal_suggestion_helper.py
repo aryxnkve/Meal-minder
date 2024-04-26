@@ -27,11 +27,8 @@ def suggest_dish(db: Session, user_input: schemas.UserAccessToken):
         existing_pref = db_service.get_pref_by_userid(db, user_id)
         if existing_pref:
             user_preferences = existing_pref.first()
-            print(user_preferences.dishes)
             # get most similar dishes to user preferences dishes
             id_list = pinecone_helper.get_similar_dish_ids(user_preferences.dishes)
-            # print("Got these similar ids from pinecone = ", id_list)
-
             # get dish names from snowflake database
             dishes = snowflake_helper.get_recipe_data(','.join(id_list))
             dish_names = []
@@ -39,11 +36,8 @@ def suggest_dish(db: Session, user_input: schemas.UserAccessToken):
             for row in range(len(dishes)):
                 dish_names.append(dishes[row][1])
                 ingredients.append(dishes[row][2])
-            # dish_names.append(user_preferences.dishes)
-            ingredients.append(user_preferences.ingredients)
 
-            # print("Final list of dishes", dish_names)
-            # print("final list of ingredients", ingredients)
+            ingredients.append(user_preferences.ingredients)
 
             # prompt gemini to generate similar dishes
             response = gemini_helper.prompt_gemini(calorie_limit, user_preferences.cuisine, user_preferences.dishes, dish_names, ingredients)
@@ -62,31 +56,18 @@ def suggest_dish(db: Session, user_input: schemas.UserAccessToken):
 
 
 def parse_dish_details(response):
-    # Split the response into sections for each dish using a regular expression that detects the dish name pattern
+
     dishes_data = re.split(r'\*\*Name:\*\* ', response)
-    print(len(dishes_data))
-    
-    # List to hold dictionaries of each dish
     dishes = []
     
-    # Iterate through each section and extract details
     for dish in dishes_data[1:]:  # Skip the first split since it will be empty
         dish_details = {}
-        # print(" ----------------- parsing ", dish)
         
-        # Use flexible regex to extract each component, allowing for optional asterisks
         name_match = re.search(r'(.+?)\n', dish)
         description_match = re.search(r'(?i)(?:\*\*)?\bDescription\b(?:\*\*)?:\s*(.+?)\n', dish)
         calories_match = re.search(r'(?i)(?:\*\*)?\bCalories per serving\b(?:\*\*)?:\s*([\s\S]+?)\n(?i)(?:\*\*)?\bRecipe Ingredients\b(?:\*\*)?:', dish)
-        # Calories per serving:
         ingredients_match = re.search(r'(?i)(?:\*\*)?\bRecipe Ingredients\b(?:\*\*)?:\s*([\s\S]+?)\n(?i)(?:\*\*)?\bHow to Cook\b(?:\*\*)?:', dish)
         cooking_instructions_match = re.search(r'(?i)(?:\*\*)?\bHow to Cook\b(?:\*\*)?:\s*([\s\S]+)', dish)
-
-        print(name_match)
-        print(description_match.group(1))
-        print(calories_match)
-        print(ingredients_match)
-        print(cooking_instructions_match)
 
         if name_match and description_match and calories_match and ingredients_match and cooking_instructions_match:
             dish_details['Name'] = name_match.group(1).replace("**", "").strip()
@@ -99,7 +80,6 @@ def parse_dish_details(response):
             print(dish)
             continue  # Skip if any information is missing
 
-        # Append the dictionary to the list
         dishes.append(dish_details)
 
     return dishes
