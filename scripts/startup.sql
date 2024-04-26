@@ -1,4 +1,9 @@
-create database nutribuddy;
+-- create database nutribuddy;
+
+
+drop table weekly_calories;
+drop table preferences;
+drop table users CASCADE;
 
 create table users(
 	ID serial primary key,
@@ -16,36 +21,6 @@ create table users(
 	
 );
 
--- insert into users
-INSERT INTO users (
-	ID,
-    username,
-    enc_password,
-    first_name,
-    last_name,
-    age,
-    gender,
-    height,
-    weight,
-    activity_level,
-    calorie_goal,
-    bmi
-) VALUES (
-	7,
-    'sayali@gmail.com',
-    '$2b$12$l1O0mnbJXrK9OKou9rT9XuzfJZTetIAtqGpvSPijiSyWyzLdDD8Mm',
-    'Sayali',
-    'Dalvi',
-    26,
-    'Female',
-    161,
-    69,
-    '🧘 Lightly active',
-    1906,
-    26.61934338952972
-);
-
-select * from users;
 
 create table preferences(
 	preference_id serial primary key,
@@ -60,25 +35,6 @@ create table preferences(
         REFERENCES users(ID)
 );
 
-insert into preferences(
-	preference_id,
-	user_id,
-	is_vegetarian,
-	cuisine,
-	dishes,
-	ingredients,
-	allergies)
-	values(
-	2,
-	7,
-	false,
-	'Indian, Mexican',
-	'Curry, Pizza, Biryani',
-	'Chicken, Onions, Tomatoes',
-	'');
-				
-
-select * from preferences;
 
 create table weekly_calories(
 	weekly_calories_id serial primary key,
@@ -92,6 +48,53 @@ create table weekly_calories(
         REFERENCES users(ID)
 );
 
+
+
+INSERT INTO users (
+	ID,
+    username,
+    enc_password,
+    first_name,
+    last_name,
+    age,
+    gender,
+    height,
+    weight,
+    activity_level,
+    calorie_goal,
+    bmi
+) VALUES (
+	91,
+    'sayali@gmail.com',
+    '$2b$12$l1O0mnbJXrK9OKou9rT9XuzfJZTetIAtqGpvSPijiSyWyzLdDD8Mm',
+    'Sayali',
+    'Dalvi',
+    26,
+    'Female',
+    161,
+    69,
+    '🧘 Lightly active',
+    1906,
+    26.61934338952972
+);
+
+insert into preferences(
+	preference_id,
+	user_id,
+	is_vegetarian,
+	cuisine,
+	dishes,
+	ingredients,
+	allergies)
+	values(
+	1,
+	91,
+	false,
+	'Indian, Mexican',
+	'Curry, Pizza, Biryani',
+	'Chicken, Onions, Tomatoes',
+	'');
+	
 insert into weekly_calories(
 	user_id,
 	dish_name,
@@ -99,7 +102,7 @@ insert into weekly_calories(
 	calories,
 	timestamp
 ) values(
-	9, 'Chicken Tikka Masala', 'https:/gcp/storage/link', 800, '2024-01-01 18:10:57'
+	91, 'Chicken Tikka Masala', 'https://storage.cloud.google.com/bdia-bucket/images/20240425143613_a726ce46-7acd-4e97-8220-8791120326d3.png', 800, '2024-04-22 18:10:57'
 );
 
 insert into weekly_calories(
@@ -109,7 +112,7 @@ insert into weekly_calories(
 	calories,
 	timestamp
 ) values(
-	9, 'Avacado Toast', 'https:/gcp/storage/link', 200, '2024-01-01 07:10:57'
+	91, 'Avacado Toast', 'https://storage.cloud.google.com/bdia-bucket/images/20240425143613_a726ce46-7acd-4e97-8220-8791120326d3.png', 270, '2024-04-23 07:10:57'
 );
 
 insert into weekly_calories(
@@ -119,15 +122,65 @@ insert into weekly_calories(
 	calories,
 	timestamp
 ) values(
-	9, 'Aloo Gobi with Naan', 'https:/gcp/storage/link', 900, '2024-01-01 23:10:57'
+	91, 'Cheese Burger', 'https://storage.cloud.google.com/bdia-bucket/images/20240425143613_a726ce46-7acd-4e97-8220-8791120326d3.png', 1126, '2024-04-23 07:10:57'
 );
 
+insert into weekly_calories(
+	user_id,
+	dish_name,
+	file_link,
+	calories,
+	timestamp
+) values(
+	91, 'Avocado Salad', 'https://storage.cloud.google.com/bdia-bucket/images/20240425143613_a726ce46-7acd-4e97-8220-8791120326d3.png', 945, '2024-04-24 23:10:57'
+);
+
+insert into weekly_calories(
+	user_id,
+	dish_name,
+	file_link,
+	calories,
+	timestamp
+) values(
+	91, 'Creamy Chicken Pasta with Broccoli', 'https://storage.cloud.google.com/bdia-bucket/images/20240425143613_a726ce46-7acd-4e97-8220-8791120326d3.png', 1002, '2024-04-24 23:10:57'
+);
+
+insert into weekly_calories(
+	user_id,
+	dish_name,
+	file_link,
+	calories,
+	timestamp
+) values(
+	91, 'Pepperoni Pizza', 'https://storage.cloud.google.com/bdia-bucket/images/20240425143613_a726ce46-7acd-4e97-8220-8791120326d3.png', 800, '2024-04-25 23:10:57'
+);
+
+insert into weekly_calories(
+	user_id,
+	dish_name,
+	file_link,
+	calories,
+	timestamp
+) values(
+	91, 'Oreo Sundae', 'https://storage.cloud.google.com/bdia-bucket/images/20240425143613_a726ce46-7acd-4e97-8220-8791120326d3.png', 804, '2024-04-25 23:10:57'
+);
+
+insert into weekly_calories(
+	user_id,
+	dish_name,
+	file_link,
+	calories,
+	timestamp
+) values(
+	91, 'Cheese Burger', 'https://storage.cloud.google.com/bdia-bucket/images/20240425143613_a726ce46-7acd-4e97-8220-8791120326d3.png', 1126, '2024-04-25 07:10:57'
+);
+
+
+select * from users;
+select * from preferences;
 select * from weekly_calories;
 
--- truncate table weekly_calories;
 
--- truncate table preferences;
 
--- truncate table users CASCADE;
 
--- drop table weekly_calories;
+
