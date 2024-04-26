@@ -22,3 +22,8 @@ requests
 xmltodict
 torch
 transformers
+google-api-core
+google-auth
+google-cloud-core
+google-cloud-storage
+

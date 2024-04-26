@@ -326,7 +326,7 @@ services:
     env_file:
       - .env
     volumes:
-      - postgres-db-volume-mydb:/var/lib/postgresql/data
+      - postgres-db-volume-mydb1:/var/lib/postgresql/data
 
 
   fastapi:
@@ -341,5 +341,5 @@ services:
       - .env
 
 volumes:
-  postgres-db-volume-mydb:
+  postgres-db-volume-mydb1:
   postgres-db-volume-airflow:
