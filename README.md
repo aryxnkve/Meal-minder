@@ -71,7 +71,7 @@ BACKEND_API_URL = ''
 
 ## Data Sources
 
-### Food.com - Recipes
+### [Food.com - Recipes](https://www.kaggle.com/datasets/irkaal/foodcom-recipes-and-reviews/data)
 
 The recipes dataset contains 522,517 recipes from 312 different categories. This dataset provides information about each recipe like cooking times, servings, ingredients, nutrition, instructions, and more.
 
@@ -101,3 +101,4 @@ The recipes dataset contains 522,517 recipes from 312 different categories. This
 ## References
 
 - [DistilBERT](https://huggingface.co/docs/transformers/model_doc/distilbert)
+- [Food Recipes Dataset](https://www.kaggle.com/datasets/irkaal/foodcom-recipes-and-reviews/data)
