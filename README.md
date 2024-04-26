@@ -43,7 +43,7 @@ A novel food image data set with volume and mass records of foods, and a deep le
 
 ## Pipelines
 
-#### Capture Calories
+#### Capture Calories:
 
 ![Architecture Diagram ](images/1.png)
 
