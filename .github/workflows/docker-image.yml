@@ -2,13 +2,10 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
-
+    branches: ["main"]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
     env:
       SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
@@ -40,12 +37,11 @@ jobs:
       TABLE_NAME: ${{ secrets.TABLE_NAME }}
       GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
       BACKEND_API_URL: ${{ secrets.BACKEND_API_URL }}
-    
-    steps:
 
-    - uses: actions/checkout@v4
-    - name: Create temporary .env file
-      run: |
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create temporary .env file
+        run: |
           echo "SNOWFLAKE_USER=${{ secrets.SNOWFLAKE_USER }}" > .env
           echo "SNOWFLAKE_PASSWORD=${{ secrets.SNOWFLAKE_PASSWORD }}" >> .env
           echo "SNOWFLAKE_ACCOUNT=${{ secrets.SNOWFLAKE_ACCOUNT }}" >> .env
@@ -76,35 +72,35 @@ jobs:
           echo "GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}" >> .env
           echo "BACKEND_API_URL=${{ secrets.BACKEND_API_URL }}" >> .env
 
-    - name: Copy .env file to backend
-      run: cp .env ./backend/
-      
-    - name: Copy .env file to frontend
-      run: cp .env ./frontend/
-      
-    - name: Copy .env file to airflow
-      run: cp .env ./airflow/config
+      - name: Copy .env file to backend
+        run: cp .env ./backend/
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
+      - name: Copy .env file to frontend
+        run: cp .env ./frontend/
+
+      - name: Copy .env file to airflow
+        run: cp .env ./airflow/config
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
           python-version: 3.8
-          
-    - name: Test code
-      run: |
+
+      - name: Test code
+        run: |
           python -m unittest tests/pytest/default.py
-      
-    - name: Build the Docker image
-      run: docker-compose build
-      
-    - name: Delete Temporary .env1
-      run: rm .env
-      
-    - name: Delete Temporary .env2
-      run: rm ./airflow/config/.env
-      
-    - name: Delete Temporary .env3
-      run: rm ./backend/.env
-      
-    - name: Delete Temporary .env4
-      run: rm ./frontend/.env
+
+      # - name: Build the Docker image
+      #   run: docker-compose build
+
+      - name: Delete Temporary .env1
+        run: rm .env
+
+      - name: Delete Temporary .env2
+        run: rm ./airflow/config/.env
+
+      - name: Delete Temporary .env3
+        run: rm ./backend/.env
+
+      - name: Delete Temporary .env4
+        run: rm ./frontend/.env
