@@ -95,7 +95,7 @@ def upload_csv2gcp_main():
                 print('error in' +  str(retry))
     
 def upload_gcp2snowflake_main():
-    
+
     # Function to get Snowflake data type from pandas data type
     def get_snowflake_data_type(dtype):
         if dtype == 'object':
@@ -122,6 +122,15 @@ def upload_gcp2snowflake_main():
 
     # Cursor to execute SQL queries
     cur = conn.cursor()
+
+    # Check if the database exists, if not, create it
+    cur.execute(f"CREATE DATABASE IF NOT EXISTS {snowflake_database}")
+
+    # Check if the warehouse exists, if not, create it
+    cur.execute(f"CREATE WAREHOUSE IF NOT EXISTS {snowflake_warehouse}")
+
+    # Use the database
+    cur.execute(f"USE DATABASE {snowflake_database}")
 
     # List all blobs (files) in the folder
     blobs = storage_client.list_blobs(bucket_name, prefix=bucket_folder_name)
@@ -163,6 +172,7 @@ def upload_gcp2snowflake_main():
     # Close Snowflake connection
     cur.close()
     conn.close()
+
 
 def upload_embeddings_to_pinecone(*op_args):
 
