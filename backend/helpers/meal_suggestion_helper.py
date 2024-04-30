@@ -29,8 +29,13 @@ def suggest_dish(db: Session, user_input: schemas.UserAccessToken):
             user_preferences = existing_pref.first()
             # get most similar dishes to user preferences dishes
             id_list = pinecone_helper.get_similar_dish_ids(user_preferences.dishes)
+            id_str = ''
+            for ids in id_list:
+                print(ids)
+                id_str += f"'{ids}', "
             # get dish names from snowflake database
-            dishes = snowflake_helper.get_recipe_data(','.join(id_list))
+            dishes = snowflake_helper.get_recipe_data(id_str[:-2])
+            # dishes = snowflake_helper.get_recipe_data(','.join(id_list))
             dish_names = []
             ingredients = []
             for row in range(len(dishes)):
@@ -40,7 +45,7 @@ def suggest_dish(db: Session, user_input: schemas.UserAccessToken):
             ingredients.append(user_preferences.ingredients)
 
             # prompt gemini to generate similar dishes
-            response = gemini_helper.prompt_gemini(calorie_limit, user_preferences.cuisine, user_preferences.dishes, dish_names, ingredients)
+            response = gemini_helper.prompt_gemini(calorie_limit, user_preferences.cuisine, user_preferences.dishes, dish_names, ingredients, user_preferences.is_vegetarian)
         else:
             print("No preferences found for this user.")
             response = gemini_helper.prompt_gemini_general(calorie_limit)
