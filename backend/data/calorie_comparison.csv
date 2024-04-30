@@ -1,0 +1,104 @@
+dish_name,ingredient,gemini_calories,nutrition_api_calories
+Creamy Chicken Pasta with Broccoli,Chicken,300,187
+Creamy Chicken Pasta with Broccoli,Broccoli,50,3.5
+Creamy Chicken Pasta with Broccoli,Pasta,200,195.92
+Creamy Chicken Pasta with Broccoli,Cheese,100,113.12
+Creamy Chicken Pasta with Broccoli,Cream,150,101.32
+Creamy Chicken Pasta with Broccoli,Butter,50,101.81
+Creamy Chicken Pasta with Broccoli,Olive oil,50,119.34
+Creamy Chicken Pasta with Broccoli,Garlic,10,4.47
+Creamy Chicken Pasta with Broccoli,Onion,10,41.36
+Creamy Chicken Pasta with Broccoli,Salt and pepper,5,0.72
+Creamy Chicken Pasta with Bacon and Broccoli,Penne Pasta (1 cup),200,195.92
+Creamy Chicken Pasta with Bacon and Broccoli,Chicken Breast (1/2 cup),170,396
+Creamy Chicken Pasta with Bacon and Broccoli,Bacon (2 slices),100,161.46
+Creamy Chicken Pasta with Bacon and Broccoli,Broccoli (1/2 cup),25,7
+Creamy Chicken Pasta with Bacon and Broccoli,Heavy Cream (1/4 cup),100,405.28
+Creamy Chicken Pasta with Bacon and Broccoli,Parmesan Cheese (1/4 cup),110,84
+Creamy Chicken Pasta with Bacon and Broccoli,Butter (1 tablespoon),100,101.81
+Creamy Chicken Pasta with Bacon and Broccoli,Garlic (1 clove),5,4.47
+Creamy Chicken Pasta with Bacon and Broccoli,Salt and Pepper (to taste),5,0.72
+Creamy Chicken Pasta with Broccoli,Chicken Breast (100g) ,165,198
+Creamy Chicken Pasta with Broccoli,Broccoli (100g) ,34,3.5
+Creamy Chicken Pasta with Broccoli,Penne Pasta (100g) ,160,195.92
+Creamy Chicken Pasta with Broccoli,Olive Oil (1 tbsp) ,119,119.34
+Creamy Chicken Pasta with Broccoli,Garlic (2 cloves) ,10,4.47
+Creamy Chicken Pasta with Broccoli,Onion (1/2 cup) ,17,82.72
+Creamy Chicken Pasta with Broccoli,Heavy Cream (1/2 cup) ,200,202.64
+Creamy Chicken Pasta with Broccoli,Parmesan Cheese (1/4 cup) ,110,84
+Creamy Chicken Pasta with Broccoli,Salt and Pepper (to taste) ,0,0.72
+"**Name:** Masala Dosa
+
+",1 cup of dosa batter,360,137.07
+"**Name:** Masala Dosa
+
+",1/2 cup of potato filling,110,77.19
+"**Name:** Masala Dosa
+
+",1/4 cup of sambar,50,32.48
+"**Name:** Masala Dosa
+
+",1/4 cup of coconut chutney,60,119.83
+"**Name:** Masala Dosa
+
+",1 teaspoon of ghee,45,37.39
+Masala Dosa,1 cup dosa batter,350,137.07
+Masala Dosa,1/2 cup potato filling,110,77.19
+Masala Dosa,1/4 cup sambar,50,32.48
+Masala Dosa,1/4 cup coconut chutney,50,119.83
+Masala Dosa,1 teaspoon ghee,40,37.39
+Masala Dosa,1 cup dosa batter,360,137.07
+Masala Dosa,1/2 cup potato filling,110,77.19
+Masala Dosa,1/4 cup sambar,50,32.48
+Masala Dosa,1/4 cup coconut chutney,60,119.83
+Masala Dosa,1 teaspoon ghee,45,37.39
+Creamy Chicken Pasta with Broccoli,Chicken Breast,230,198
+Creamy Chicken Pasta with Broccoli,Broccoli,30,3.5
+Creamy Chicken Pasta with Broccoli,Pasta,350,195.92
+Creamy Chicken Pasta with Broccoli,Olive Oil,120,119.34
+Creamy Chicken Pasta with Broccoli,Garlic,10,4.47
+Creamy Chicken Pasta with Broccoli,Heavy Cream,200,101.32
+Creamy Chicken Pasta with Broccoli,Parmesan Cheese,110,21
+Creamy Chicken Pasta with Broccoli,1 cup penne pasta,200,192.76
+Creamy Chicken Pasta with Broccoli,"1 boneless, skinless chicken breast",170,198
+Creamy Chicken Pasta with Broccoli,1 cup broccoli,30,54.6
+Creamy Chicken Pasta with Broccoli,1/2 cup heavy cream,200,404.6
+Creamy Chicken Pasta with Broccoli,1/2 cup grated Parmesan cheese,110,210
+Creamy Chicken Pasta with Broccoli,2 tablespoons butter,180,203.54
+Creamy Chicken Pasta with Broccoli,1 teaspoon garlic powder,9,10.48
+Creamy Chicken Pasta with Broccoli,1/2 teaspoon salt,0,0
+Creamy Chicken Pasta with Broccoli,1/4 teaspoon black pepper,0,1.3
+Creamy Chicken Pasta with Broccoli,Penne pasta,70,195.92
+Creamy Chicken Pasta with Broccoli,Broccoli,25,3.5
+Creamy Chicken Pasta with Broccoli,Grilled chicken,100,284.16
+Creamy Chicken Pasta with Broccoli,Heavy cream,50,101.32
+Creamy Chicken Pasta with Broccoli,Parmesan cheese,50,21
+Creamy Chicken Pasta with Broccoli,Butter,100,101.81
+Creamy Chicken Pasta with Broccoli,Garlic,5,4.47
+Creamy Chicken Pasta with Broccoli,Salt,0,0
+Creamy Chicken Pasta with Broccoli,Black pepper,0,5.77
+"""Avocado Salad""",Lettuce (1 cup),5,15.98
+"""Avocado Salad""",Cucumber (1/2 cup),8,60.3
+"""Avocado Salad""",Avocado (1/2),120,321.6
+"""Avocado Salad""",Almonds (1/4 cup),84,30.86
+"""Avocado Salad""",Parmesan Cheese (1/4 cup),113,84
+"""Avocado Salad""",Olive Oil (1 tablespoon),119,119.34
+"""Avocado Salad""",Lettuce (1 cup),5,15.98
+"""Avocado Salad""",Cucumber (1/2 cup),8,60.3
+"""Avocado Salad""",Avocado (1/2),120,321.6
+"""Avocado Salad""",Almonds (1/4 cup),84,30.86
+"""Avocado Salad""",Parmesan Cheese (1/4 cup),113,84
+"""Avocado Salad""",Olive Oil (1 tablespoon),119,119.34
+"""Avocado Salad""",Salt and Pepper (to taste),0,0.72
+"""Avocado Salad""",Lettuce (1 cup),5,15.98
+"""Avocado Salad""",Cucumber (1/2 cup),8,60.3
+"""Avocado Salad""",Avocado (1/2),120,321.6
+"""Avocado Salad""",Almonds (1/4 cup),84,30.86
+"""Avocado Salad""",Parmesan Cheese (1/4 cup),113,84
+"""Avocado Salad""",Olive Oil (1 tablespoon),119,119.34
+"""Avocado Salad""",Salt and Pepper (to taste),0,0.72
+"""Oreo Sundae""",1 cup of vanilla ice cream,284,273.24
+"""Oreo Sundae""",1/2 cup of chocolate syrup,119,418.5
+"""Oreo Sundae""",1/4 cup of whipped cream,101,38.55
+"""Oreo Sundae""",1/4 cup of Oreo cookie crumbles,150,263.09
+"""Oreo Sundae""",1 tablespoon of chocolate chips,50,52.3

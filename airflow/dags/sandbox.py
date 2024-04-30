@@ -46,14 +46,6 @@ bucket_name = os.getenv('BUCKET_NAME')
 # Local file path
 local_file_path = os.getenv('CSV_SOURCE_PATH')
 bucket_folder_name = os.getenv('BUCKET_FOLDER_NAME')
-
-# Set up Snowflake connection parameters
-snowflake_user = os.getenv('SNOWFLAKE_USER')
-snowflake_password = os.getenv('SNOWFLAKE_PASSWORD')
-snowflake_account = os.getenv('SNOWFLAKE_ACCOUNT')
-snowflake_warehouse = os.getenv('SNOWFLAKE_WAREHOUSE')
-snowflake_database = os.getenv('SNOWFLAKE_DATABASE')
-snowflake_schema = os.getenv('SNOWFLAKE_SCHEMA')
 table_name = os.getenv('TABLE_NAME_AIRFLOW')
 
 def upload_csv2gcp_main():
@@ -95,7 +87,7 @@ def upload_csv2gcp_main():
                 print('error in' +  str(retry))
     
 def upload_gcp2snowflake_main():
-
+    
     # Function to get Snowflake data type from pandas data type
     def get_snowflake_data_type(dtype):
         if dtype == 'object':
@@ -108,7 +100,17 @@ def upload_gcp2snowflake_main():
             return 'VARCHAR'
 
     # Set up GCP credentials
-    storage_client = storage.Client.from_service_account_json(credentials_path)
+    service_account_key_path = os.getenv('GCP_SERVICE_ACCOUNT_KEY_PATH')
+    storage_client = storage.Client.from_service_account_json(service_account_key_path)
+
+    # Set up Snowflake connection parameters
+    snowflake_user = os.getenv('SNOWFLAKE_USER')
+    snowflake_password = os.getenv('SNOWFLAKE_PASSWORD')
+    snowflake_account = os.getenv('SNOWFLAKE_ACCOUNT')
+    snowflake_warehouse = os.getenv('SNOWFLAKE_WAREHOUSE')
+    snowflake_database = os.getenv('SNOWFLAKE_DATABASE')
+    snowflake_schema = os.getenv('SNOWFLAKE_SCHEMA')
+    table_name = os.getenv('TABLE_NAME_AIRFLOW')
 
     # Connect to Snowflake
     conn = snowflake.connector.connect(
@@ -123,17 +125,12 @@ def upload_gcp2snowflake_main():
     # Cursor to execute SQL queries
     cur = conn.cursor()
 
-    # Check if the database exists, if not, create it
-    cur.execute(f"CREATE DATABASE IF NOT EXISTS {snowflake_database}")
-
-    # Check if the warehouse exists, if not, create it
-    cur.execute(f"CREATE WAREHOUSE IF NOT EXISTS {snowflake_warehouse}")
-
-    # Use the database
-    cur.execute(f"USE DATABASE {snowflake_database}")
+    # Access the CSV files in the GCP bucket
+    bucket_name = os.getenv('BUCKET_NAME')
+    folder_name = os.getenv('BUCKET_FOLDER_NAME')  # Name of the folder inside the bucket
 
     # List all blobs (files) in the folder
-    blobs = storage_client.list_blobs(bucket_name, prefix=bucket_folder_name)
+    blobs = storage_client.list_blobs(bucket_name, prefix=folder_name)
 
     # Convert the iterator to a list
     blobs_list = list(blobs)
@@ -173,8 +170,7 @@ def upload_gcp2snowflake_main():
     cur.close()
     conn.close()
 
-
-def upload_embeddings_to_pinecone(*op_args):
+def upload_embeddings2pinecone_test(*op_args):
 
     # Create or retrieve a namespace in Pinecone
     namespace_name = op_args[0]
@@ -192,6 +188,14 @@ def upload_embeddings_to_pinecone(*op_args):
     tokenizer = DistilBertTokenizer.from_pretrained(model_name)
     model = DistilBertModel.from_pretrained(model_name)
 
+    # Snowflake connection parameters
+    snowflake_user = os.getenv('SNOWFLAKE_USER')
+    snowflake_password = os.getenv('SNOWFLAKE_PASSWORD')
+    snowflake_account = os.getenv('SNOWFLAKE_ACCOUNT')
+    snowflake_warehouse = os.getenv('SNOWFLAKE_WAREHOUSE')
+    snowflake_database = os.getenv('SNOWFLAKE_DATABASE')
+    snowflake_schema = os.getenv('SNOWFLAKE_SCHEMA')
+
     # Connect to Snowflake
     conn = snowflake.connector.connect(
         user=snowflake_user,
@@ -204,6 +208,7 @@ def upload_embeddings_to_pinecone(*op_args):
 
     # Cursor to execute SQL queries
     cur = conn.cursor()
+    table_name = os.getenv('TABLE_NAME_AIRFLOW')
 
     # Get the total number of rows in the table
     cur.execute(f"SELECT COUNT(*) FROM {table_name}")
@@ -283,12 +288,19 @@ with dag:
     
     upload_recipeName2pinecone = PythonOperator(
         task_id='Upload_to_Pinecone_Recipe_Name_namespace',
-        python_callable=upload_embeddings_to_pinecone,
+        python_callable=upload_embeddings2pinecone_test,
         provide_context=True,
-        op_args = [os.getenv('DISHES_NAMESPACE') ,'name', 10],
+        op_args = [os.getenv('PINECONE_NAMESPACE_1') ,'name', 20],
         dag=dag,
     )
 
+    upload_ingredients2pinecone = PythonOperator(
+        task_id='Upload_to_Pinecone_Ingredient_namespace',
+        python_callable=upload_embeddings2pinecone_test,
+        provide_context=True,   
+        op_args = [os.getenv('PINECONE_NAMESPACE_2'),'recipeingredientparts', 20],
+        dag=dag,
+    )
 
-    start >> upload_csv2gcp_main >> upload_gcp2snowflake_main >> upload_recipeName2pinecone 
+    start >> upload_csv2gcp_main >> upload_gcp2snowflake_main >> upload_recipeName2pinecone >> upload_ingredients2pinecone
 

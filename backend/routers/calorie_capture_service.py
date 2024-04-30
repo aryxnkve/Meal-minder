@@ -3,8 +3,7 @@ from dotenv import dotenv_values
 from fastapi import HTTPException, Depends, File, UploadFile
 from sqlalchemy.orm import Session
 from fastapi.responses import JSONResponse
-# from helpers import calorie_count_helper
-from helpers import gemini_helper
+from helpers import calorie_count_helper
 
 from db_utils import SessionLocal, schemas, db_service
 
@@ -23,8 +22,8 @@ def get_db():
 @router.post("/api/v1/user/calorie_count")
 async def calorie_count(file: UploadFile = File(...) ):
     try:
-        # result = calorie_count_helper.count_calories(file)
-        result = gemini_helper.vision_calorie(file)
+        result = calorie_count_helper.count_calories(file)
+        # result = gemini_helper.vision_calorie(file)
     except HTTPException as e:
         raise e
     except Exception as e:

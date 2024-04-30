@@ -18,7 +18,7 @@ desired_output_format = """ The output for each dish should strictly follow the 
     **How to Cook:** "Step-by-step cooking instructions on how to prepare the dish."
 """
 
-def prompt_gemini(calorie_limit, cuisine_str, preferred_dishes_str, similar_dishes_list, ingredients_list, is_vegetarian):
+def prompt_gemini(calorie_limit, cuisine_str, preferred_dishes_str, similar_dishes_list, ingredients_list):
     genai.configure(api_key=GOOGLE_API_KEY)
     model = genai.GenerativeModel('gemini-pro')
     
@@ -26,15 +26,11 @@ def prompt_gemini(calorie_limit, cuisine_str, preferred_dishes_str, similar_dish
     preferred_ingredients_str = ", ".join(ingredients_list)
     similar_dishes_str = ", ".join(similar_dishes_list)
 
-    vegetarian_str = ''
-    if is_vegetarian:
-        vegetarian_str = 'Make sure all the dishes are vegetarian. Dishes SHOULD NOT have eggs, fish or any meat. '
-
     prompt = (
         f"Based on my preference for {cuisine_str} cuisines and enjoyment of dishes like {preferred_dishes_str}, "
         f"which incorporate ingredients such as {preferred_ingredients_str}, and considering a calorie limit of {calorie_limit} calories per dish, "
         f"Generate a list of 5 dishes, each with a detailed description, calorie count, ingredients, and cooking instructions, "
-        f"focusing on {cuisine_str} cuisines, and are within this calorie range. Make sure you do not mix the cuisines. {vegetarian_str}"
+        f"focusing on {cuisine_str} cuisines, and are within this calorie range. Make sure you do not mix the cuisines. "+
         f"Additionally, consider similar dishes like {similar_dishes_str} for inspiration. "+
         desired_output_format
         )
@@ -95,8 +91,8 @@ def vision_calorie(files: UploadFile):
     except Exception as e:
         print(str(e))
 
-    # return response.text
+    return response.text
     
-    return {"response": response.text}
+    # return {"response": response.text}
 
 

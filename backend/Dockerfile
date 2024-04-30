@@ -16,6 +16,7 @@ ADD routers /app/routers/
 ADD utils /app/utils/
 ADD helpers /app/helpers/
 ADD db_utils /app/db_utils/
+ADD data /app/data/
 ADD tests /app/tests/
 # Copy main.py and requirements.txt from local into app dir inside the container
 
