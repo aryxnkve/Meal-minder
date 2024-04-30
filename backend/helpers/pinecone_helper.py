@@ -6,7 +6,9 @@ import torch
 from transformers import DistilBertModel, DistilBertTokenizer
 
 
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 DISHES_NAMESPACE = os.getenv("DISHES_NAMESPACE")
+INGREDIENTS_NAMESPACE = os.getenv("INGREDIENTS_NAMESPACE")
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_NAME")
 
