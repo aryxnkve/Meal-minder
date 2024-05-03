@@ -86,27 +86,13 @@ The recipes dataset contains 522,517 recipes from 312 different categories. This
 [![Google Cloud](https://img.shields.io/badge/Google_Cloud-%234285F4.svg?style=for-the-badge&logo=google-cloud&logoColor=white)](https://cloud.google.com)
 [![Hugging Face](https://img.shields.io/badge/Hugging_Face-gray?style=for-the-badge)](https://huggingface.co)
 
-## Pipelines
 
-#### Capture Calories:
 
-![Architecture Diagram ](images/1.png)
-
-#### RAG to suggest Meals as per Calories
-
-![Architecture Diagram ](images/2.png)
-
-#### Create Embeddings
-
-![Architecture Diagram ](images/3.png)
-
-## Big Data Systems and Intelligence Analytics (DAMG 7245)
-
-| Name         | Email                        | NUID    | Contribution |
-| ------------ | ---------------------------- | ------- | ------------ |
-| Ameya Apte   | apte.ame@northeastern.edu    | 2764540 | 33%          |
-| Sayali Dalvi | dalvi.sa@northeastern.edu    | 2799803 | 34%          |
-| Soeb Hussain | hussain.soe@northeastern.edu | 2747200 | 33%          |
+| Name         | Email                        | 
+| ------------ | ---------------------------- |
+| Ameya Apte   | apte.ame@northeastern.edu    | 
+| Sayali Dalvi | dalvi.sa@northeastern.edu    | 
+| Soeb Hussain | hussain.soe@northeastern.edu | 
 
 ## References
 
