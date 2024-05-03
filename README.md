@@ -8,7 +8,11 @@ http://35.237.26.187:8501/Sign_In
 
 ## Documentation
 
-[![codelabs](https://img.shields.io/badge/codelabs-4285F4?style=for-the-badge&logo=codelabs&logoColor=white)](https://codelabs-preview.appspot.com/?file_id=1r6Cg_miHqOiVv43CM6GhOtq1ZWK9lf6mIlYW7VNuSVk)
+[![codelabs](https://img.shields.io/badge/codelabs-4285F4?style=for-the-badge&logo=codelabs&logoColor=white)]([https://codelabs-preview.appspot.com/?file_id=1r6Cg_miHqOiVv43CM6GhOtq1ZWK9lf6mIlYW7VNuSVk](https://codelabs-preview.appspot.com/?file_id=1IL4wg6ONtgKFOBsyHuDzt-ulIEoyoChsPki4wapNqbM#0))
+
+## Video Demo:
+
+https://youtu.be/_7Gt482oJBc
 
 ## Steps to make it run on your machine
 
@@ -23,50 +27,44 @@ http://35.237.26.187:8501/Sign_In
 ## Empty .env structure for './airflow/config', './backend', './frontend' and './'
 
 ```
-# Used in DAG
+# Snowflake
+SNOWFLAKE_USER = '<your_snowflake_user>'
+SNOWFLAKE_PASSWORD = '<your_snowflake_passowrd>'
+SNOWFLAKE_ACCOUNT = '######-#####'
+SNOWFLAKE_WAREHOUSE = 'NUTRIBUDDY_WH'
+SNOWFLAKE_DATABASE = 'NUTRIBUDDY_DB'
+SNOWFLAKE_SCHEMA = 'PUBLIC'
+TABLE_NAME = 'NUTRIBUDDY_DATA'
 
-SNOWFLAKE_USER = ''
-SNOWFLAKE_PASSWORD = ''
-SNOWFLAKE_ACCOUNT = ''
-SNOWFLAKE_WAREHOUSE = ''
-SNOWFLAKE_DATABASE = ''
-SNOWFLAKE_SCHEMA = ''
-GCP_SERVICE_ACCOUNT_KEY_PATH = ''
-BUCKET_NAME = ''
-BLOB_NAME = ''
-TABLE_NAME_AIRFLOW = ''
-CSV_SOURCE_PATH = ''
-PINECONE_API_KEY = ''
-PINECONE_NAMESPACE_1 = ''
-PINECONE_NAMESPACE_2 = ''
-PINECONE_INDEX_NAME = ''
-OPENAI_API_KEY = ''
-EMBEDDING_MODEL = ''
-BUCKET_FOLDER_NAME = ''
+#GCP
+GCP_SERVICE_ACCOUNT_KEY_PATH = './config/gcp_credentials.json'
+BUCKET_NAME = '<your_bucket_name>'
+BLOB_NAME = '5KRecipes.csv'
+BUCKET_FOLDER_NAME = '<your_folder_name>'
+CSV_SOURCE_PATH = './config/5KRecipes.csv'
+
+#Pinecone
+PINECONE_API_KEY='<pinecone_api_key>'
+DISHES_NAMESPACE='recipe_name_5k'
+PINECONE_INDEX_NAME='recipes'
+
 
 # Used in docker-compose.yaml
+AIRFLOW_UID=50000
+AIRFLOW_PROJ_DIR=./airflow
 
-AIRFLOW_UID = 0
-AIRFLOW_PROJ_DIR = ''
+#postgres
+POSTGRES_USER='postgres'
+POSTGRES_PASSWORD='postgres'
+POSTGRES_DB='nutribuddy'
+POSTGRES_HOST='postgresdb:5432'
 
-POSTGRES_USER = ''
-POSTGRES_PASSWORD = ''
-POSTGRES_DB = ''
-POSTGRES_HOST = ''
-
-# PINECONE
-
-DISHES_NAMESPACE = ''
-INGREDIENTS_NAMESPACE = ''
-
-# Snowflake
-
-TABLE_NAME = ''
 
 # gemini
+GOOGLE_API_KEY='<google_key>'
+BACKEND_API_URL='http://fastapi:8095'
+GCP_SERVICE_ACCOUNT_KEY='gcp_credentials.json'
 
-GOOGLE_API_KEY = ''
-BACKEND_API_URL = ''
 ```
 
 ## Data Sources
