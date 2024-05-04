@@ -15,18 +15,26 @@ http://35.237.26.187:8501/Sign_In
 
 https://youtu.be/_7Gt482oJBc
 
-## Steps to make it run on your machine
+## Prerequisites
 
-- Clone the github repository on local
-- Create env file in ‘./airflow/config’; ‘./backend’; ‘./frontend’; and ‘./’ directories
-- Create a virtual environment using ‘python -m venv ./venv’
-- Make sure you have docker daemon running on your local machine
-- Navigate to the project directory and run ‘docker compose build’ to build the images
-- Then execute ‘docker compose up’ to run the images as containers
-- To stop the running containers press Ctrl + C / Cmd + C and then execute docker compose down to remove the containers as a cleanup step
+Make sure to have docker daemon running on your local machine
 
-## Empty .env structure for './airflow/config', './backend', './frontend' and './'
+- [Docker Engine](https://docs.docker.com/engine/install/)
+- [Docker compose](https://docs.docker.com/compose/install/)
 
+## Steps to run locally
+
+1. Clone the repository on local
+```git clone https://github.com/BigDataIA-Summer2023-Team2/Assignment3.git```
+
+2. Create a virtual environment
+```python -m venv ./venv```
+   
+3. Create .env file in following 4 folders:
+   - main project directory
+   - aiflow/config
+   - backend
+   - frontend
 ```
 # Snowflake
 SNOWFLAKE_USER = '<your_snowflake_user>'
@@ -41,7 +49,7 @@ TABLE_NAME = 'NUTRIBUDDY_DATA'
 GCP_SERVICE_ACCOUNT_KEY_PATH = './config/gcp_credentials.json'
 BUCKET_NAME = '<your_bucket_name>'
 BLOB_NAME = '5KRecipes.csv'
-BUCKET_FOLDER_NAME = '<your_folder_name>'
+BUCKET_FOLDER_NAME = 'recipe_chunks_5k'
 CSV_SOURCE_PATH = './config/5KRecipes.csv'
 
 #Pinecone
@@ -68,11 +76,81 @@ GCP_SERVICE_ACCOUNT_KEY='gcp_credentials.json'
 
 ```
 
-## Data Sources
+4. Snowflake Setup
+   - Sign up for a [Snowflake](https://www.snowflake.com/en/) account
+   - Verify Your Email Address
+   - You will recieve an activation email with the URL in the below format
+     ``` https://<account-identifier>.snowflakecomputing.com/console/login. ```
+   - Copy the account identifier from the URL
+   - Put your newly created username, password and account identifier in the below .env variables
+     ```
+     SNOWFLAKE_USER = '<your_snowflake_user>'
+     SNOWFLAKE_PASSWORD = '<your_snowflake_passowrd>'
+     SNOWFLAKE_ACCOUNT = '######-#####'
+     ```
+5. Pinecone Setup
+   - Sign Up for a [Pinecone](https://www.pinecone.io/) Account
+   - Log in and [Generate API key](https://docs.pinecone.io/guides/getting-started/quickstart#2-get-your-api-key)
+   - Copy this key and put it in below .env varibale
+     ``` PINECONE_API_KEY='<pinecone_api_key>' ```
+     
+6. Create Google Cloud Storage Bucket
+   - Sign in to [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a New Project or use an existing one
+   - In the Google Cloud Console, navigate to the "Storage" section by clicking on the menu icon in the upper-left corner and selecting "Storage" > "Browser."
+   - [Create a Bucket](https://cloud.google.com/storage/docs/creating-buckets)
+   - Put your bucket name in the .env variable
+     ``` BUCKET_NAME = '<your_bucket_name>' ```
 
-### [Food.com - Recipes](https://www.kaggle.com/datasets/irkaal/foodcom-recipes-and-reviews/data)
+7. Create GCP credentials file
+   - Navigate to the IAM & Admin > Service Accounts page in the Google Cloud Console.
+   - Click on the "Create Service Account" button.
+   - Enter a name and description for the service account.
+   - Click on the "Create" button to proceed.
+   - Assign the necessary permissions to the service account. To grant full permissions to the bucket, you can assign the "Storage Object Admin" role.
+   - Click on the "Continue" button to proceed.
+   - Click on the "Create Key" button to generate a new key for the service account.
+   - Select the key type as "JSON" and click on the "Create" button.
+   - The JSON key file will be generated and downloaded to your computer.
+   - Rename this file as "gcp_credentials.json"
+   - Put this file the below locations
+       - airflow/config
+       - backend
+       - frontend
+         
+8. Make sure you have .env file in all the 4 location mentioned before
+9. Navigate to the project directory and build the docker images
+    ```
+   docker compose build
+    ```
+11. Then run the images as docker containers
+     ```
+    docker compose up
+     ```
+    You can also Add the -d flag to run the containers in detached mode (in the background)
+    ```
+    docker-compose up -d
+    ```
+13. After running the docker-compose up command, Docker Compose will create and start the containers specified in your docker-compose.yml file. You can verify that the containers are running by executing:
+    ```
+    docker-compose ps
+    ```
+    
+15. You can now access the application on localhost.
+    
+16. Run the Airflow pipeline
+    - Navigate to ```http://localhost:8080```
+    - Use username and password as "airflow" to login
+      <img width="662" alt="Screenshot 2024-05-04 at 5 46 40 PM" src="https://github.com/Dalvisayali/NutriBuddy/assets/47607881/200451d3-4bae-4dbf-94c1-ece5a683c40d">
+    - Run the "sandbox" DAG by clicking on the play button on right side ("Actions" column)
+      <img width="1499" alt="Screenshot 2024-05-04 at 5 48 01 PM" src="https://github.com/Dalvisayali/NutriBuddy/assets/47607881/16969a5d-9a76-4587-9d32-7b1f70cfaabc">
 
-The recipes dataset contains 522,517 recipes from 312 different categories. This dataset provides information about each recipe like cooking times, servings, ingredients, nutrition, instructions, and more.
+17. Access the application at "http://localhost:8501/Register"
+
+18. Stop and remove the containers as a cleanup step
+    ```
+    docker-compose down
+    ```
 
 ## Tools and Technologies:
 
