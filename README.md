@@ -4,9 +4,9 @@ The project aims to develop a personalized meal planner application that utilize
 
 ## Live application:
 
-- UI : ```http://35.237.26.187:8501/Sign_In```
-- Backend: ``` http://35.237.26.187:8095/docs ```
-- Airflow: ``` http://35.237.26.187:8080/home ```
+- UI : [http://35.237.26.187:8501/Sign_In](http://35.237.26.187:8501/Sign_In)
+- Backend: [http://35.237.26.187:8095/docs](http://35.237.26.187:8095/docs)
+- Airflow: [http://35.237.26.187:8080/home](http://35.237.26.187:8080/home)
 
 ## Documentation
 
