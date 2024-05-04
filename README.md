@@ -4,7 +4,9 @@ The project aims to develop a personalized meal planner application that utilize
 
 ## Live application:
 
-http://35.237.26.187:8501/Sign_In
+UI : ```http://35.237.26.187:8501/Sign_In```
+Backend: ``` http://35.237.26.187:8095/docs ```
+Airflow: ``` http://35.237.26.187:8080/home ```
 
 ## Documentation
 
@@ -145,9 +147,12 @@ GCP_SERVICE_ACCOUNT_KEY='gcp_credentials.json'
     - Run the "sandbox" DAG by clicking on the play button on right side ("Actions" column)
       <img width="1499" alt="Screenshot 2024-05-04 at 5 48 01 PM" src="https://github.com/Dalvisayali/NutriBuddy/assets/47607881/16969a5d-9a76-4587-9d32-7b1f70cfaabc">
 
-17. Access the application at "http://localhost:8501/Register"
+17. Access the application
+    - UI : ```http://localhost:8501/Register```
+    - FastAPI Backend: ``` http://localhost:8095/docs ```
+    - Airflow: ```http://localhost:8080```
 
-18. Stop and remove the containers as a cleanup step
+19. Stop and remove the containers as a cleanup step
     ```
     docker-compose down
     ```
